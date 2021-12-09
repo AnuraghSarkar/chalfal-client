@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         chalfal_color: {
           DEFAULT: "#383C4A",
+          brighter: "#414A59",
         },
       },
     },
