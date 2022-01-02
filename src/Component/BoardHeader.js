@@ -17,7 +17,7 @@ const BoardHeader = () => {
             />
           </div>
           <div className="pt-2 pl-4">
-            <h1 className="text-gray-200 text-3xl">
+            <h1 className="text-gray-200 text-3xl font-bold">
               Chalfal: Discussion for developers
             </h1>
             <h5 className="text-gray-400">r/chalfal</h5>
