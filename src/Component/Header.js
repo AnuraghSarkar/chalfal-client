@@ -15,7 +15,7 @@ const Header = () => {
         <img src={logo} alt="Logo" className="w-8 h-8 mr-4" />
         <form
           action=""
-          className="bg-chalfal_color-brighter px-3 flex rounded-md border border-reddit_border mx-4"
+          className="bg-chalfal_color-brighter px-3 flex rounded-md border border-chalfal_border mx-4"
         >
           <SearchIcon className="text-gray-300 h-6 w-6 mt-1" />
           <input

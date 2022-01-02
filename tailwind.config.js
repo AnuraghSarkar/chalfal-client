@@ -11,8 +11,16 @@ module.exports = {
     extend: {
       colors: {
         chalfal_color: {
-          DEFAULT: "#383C4A",
-          brighter: "#414A59",
+          DEFAULT: "#030303",
+          brighter: "#1a1a1a",
+          brightest: "#272728",
+        },
+        chalfal_border: {
+          DEFAULT: "#343536",
+        },
+        chalfal_text: {
+          DEFAULT: "rgb(215, 218, 220)",
+          darker: "#818384",
         },
       },
     },
