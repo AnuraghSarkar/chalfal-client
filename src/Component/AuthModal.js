@@ -77,7 +77,7 @@ const AuthModal = () => {
           <div>
             New to Chalfal?
             <button
-              className="text-blue-600"
+              className="text-blue-600 ml-2"
               onClick={() => setModalType("register")}
             >
               Sign Up
@@ -85,9 +85,10 @@ const AuthModal = () => {
           </div>
         ) : (
           <div>
-            Already a member?
+              Already a member?
+              
             <button
-              className="text-blue-600"
+              className="text-blue-600 ml-2"
               onClick={() => setModalType("login")}
             >
               Log In
