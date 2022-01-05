@@ -12,17 +12,18 @@ import {
 } from "@heroicons/react/outline";
 import Button from "./Button";
 
-import { useState } from 'react';
+import { useState } from "react";
 import ClickOutHandler from "react-clickout-handler";
 
 const Header = () => {
-  const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] = useState('hidden');
-  const toggleUserDropdownVisibility = () => { 
-    if (userDropdownVisibilityClass === 'hidden') {
-      setUserDropdownVisibilityClass('visible');
+  const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] =
+    useState("hidden");
+  const toggleUserDropdownVisibility = () => {
+    if (userDropdownVisibilityClass === "hidden") {
+      setUserDropdownVisibilityClass("visible");
     } else {
-      setUserDropdownVisibilityClass('hidden');
-    };
+      setUserDropdownVisibilityClass("hidden");
+    }
   };
   return (
     <header className="w-full bg-chalfal_color p-2">
@@ -55,7 +56,9 @@ const Header = () => {
           <Button className="">Sign Up</Button>
         </div>
 
-        <ClickOutHandler onClickOut ={()=> setUserDropdownVisibilityClass('hidden')}>
+        <ClickOutHandler
+          onClickOut={() => setUserDropdownVisibilityClass("hidden")}
+        >
           <button
             className="rounded-md flex ml-4"
             onClick={toggleUserDropdownVisibility}
