@@ -50,10 +50,10 @@ const Header = () => {
           <PlusIcon className="text-gray-300 h-6 w-6 mx-2" />
         </button> */}
         <div className="mx-2 hidden sm:block">
-          <Button outline className="mr-1">
+          <Button outline className="mr-1 h-8">
             Log In
           </Button>
-          <Button className="">Sign Up</Button>
+          <Button className="h-8">Sign Up</Button>
         </div>
 
         <ClickOutHandler
