@@ -1,16 +1,32 @@
 import Input from "./Input";
 import Button from "./Button";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import axios from "axios";
+import AuthModalContext from "./AuthModalContext";
 
-const AuthModal = () => {
+const AuthModal = (props) => {
   const [modalType, setModalType] = useState("login");
   const [email, setEmail] = useState("");
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const modalContext = useContext(AuthModalContext);
+
+  const visibleClass = modalContext.show ? "block" : "hidden";
+
+  const register = async (e) => {
+    e.preventDefault();
+    const data = { email, username, password };
+    axios.post("http://localhost:4000/register", data, {
+      withCredentials: true,
+    });
+  };
 
   return (
     <div
-      className="w-screen h-screen fixed z-20 top-0 left-0 flex"
+      className={
+        "w-screen h-screen fixed z-20 top-0 left-0 flex" + visibleClass
+      }
       style={{ backgroundColor: "rgba(0,0,0,.6" }}
     >
       <div className="border border-chalfal_border w-3/4  sm:w-1/2 md:w-1/2 bg-chalfal_color p-5 text-chalfal_text self-center mx-auto rounded-md">
@@ -52,8 +68,8 @@ const AuthModal = () => {
               <Input
                 type="text"
                 className="mb-3 w-full"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </label>
             <label>
@@ -69,10 +85,22 @@ const AuthModal = () => {
             </label>
           </>
         )}
+        {modalType === "login" && (
+          <Button className="w-full mb-3" style={{ borderRadius: ".4rem" }}>
+            Log In
+          </Button>
+        )}
 
-        <Button className="w-full mb-3" style={{ borderRadius: ".4rem" }}>
-          {modalType === "login" ? "Log In" : "Sign Up"}
-        </Button>
+        {modalType === "register" && (
+          <Button
+            className="w-full mb-3"
+            onClick={(e) => register(e)}
+            style={{ borderRadius: ".4rem" }}
+          >
+            Sign Up
+          </Button>
+        )}
+
         {modalType === "login" ? (
           <div>
             New to Chalfal?
@@ -85,8 +113,7 @@ const AuthModal = () => {
           </div>
         ) : (
           <div>
-              Already a member?
-              
+            Already a member?
             <button
               className="text-blue-600 ml-2"
               onClick={() => setModalType("login")}
