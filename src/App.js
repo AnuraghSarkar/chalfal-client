@@ -9,18 +9,19 @@ import UserContext from "./Store/UserContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function App() {
+
+const App=()=> {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [user, setUser] = useState({});
   useEffect(() => {
     axios
-      .get("http://localhost:4000/user", { withCredentials: true })
+      .get("api/auth/user", { withCredentials: true })
       .then((response) => setUser(response.data));
   }, []);
   function logout() {
-    axios
-      .post("http://localhost:4000/logout", {}, { withCredentials: true })
-      .then(() => setUser({}));
+    // axios
+    //   .post("http://localhost:4000/logout", {}, { withCredentials: true })
+    //   .then(() => setUser({}));
   }
 
   return (

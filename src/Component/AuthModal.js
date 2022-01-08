@@ -24,7 +24,7 @@ function AuthModal() {
     e.preventDefault();
     const data = { email, username, password };
     axios
-      .post("http://localhost:4000/register", data, { withCredentials: true })
+      .post("api/auth/register", data, { withCredentials: true })
       .then(() => {
         user.setUser({ username });
         modalContext.setShow(false);
@@ -37,7 +37,7 @@ function AuthModal() {
   function login() {
     const data = { username, password };
     axios
-      .post("http://localhost:4000/login", data, { withCredentials: true })
+      .post("api/auth/login", data, { withCredentials: true })
       .then(() => {
         modalContext.setShow(false);
         user.setUser({ username });
@@ -101,12 +101,14 @@ function AuthModal() {
             <div class="mt-6">
               {modalType === "login" ? (
                 <button
+                  onClick={() => login()}
                   class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                 >
                   Log In
                 </button>
               ) : (
                 <button
+                  onClick={(e) => register(e)}
                   class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                 >
                   Sign Up
@@ -156,7 +158,7 @@ function AuthModal() {
               <button
                 href="/"
                 class="font-medium text-gray-200 hover:underline"
-                onClick={() => modalContext.setShow("login") }
+                onClick={() => modalContext.setShow("login")}
               >
                 Register
               </button>

@@ -16,10 +16,10 @@ import UserContext from "../Store/UserContext";
 import { useState, useContext } from "react";
 import ClickOutHandler from "react-clickout-handler";
 
-function Header() {
+const Header =()=> {
   const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] =
     useState("hidden");
-  function toggleUserDropdown() {
+  const toggleUserDropdown=()=> {
     if (userDropdownVisibilityClass === "hidden") {
       setUserDropdownVisibilityClass("block");
     } else {
