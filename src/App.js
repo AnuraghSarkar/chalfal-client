@@ -19,9 +19,9 @@ const App=()=> {
       .then((response) => setUser(response.data));
   }, []);
   function logout() {
-    // axios
-    //   .post("http://localhost:4000/logout", {}, { withCredentials: true })
-    //   .then(() => setUser({}));
+    axios
+      .post("api/auth/logout", {}, { withCredentials: true })
+      .then(() => setUser({}));
   }
 
   return (
