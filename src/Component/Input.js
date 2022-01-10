@@ -3,7 +3,7 @@ const Input = (props) => {
     <input
       {...props}
       className={
-        "bg-chalfal_color-brighter text-chalfal_text p-2 border border-chalfal_color-brightest rounded-md block " +
+        "block w-full px-4 py-2 mt-2 bg-gray-800 border rounded-md  text-gray-300 border-gray-600 focus:border-blue-500 focus:outline-none focus:ring" +
         props.className
       }
     />

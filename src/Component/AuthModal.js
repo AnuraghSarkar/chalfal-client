@@ -1,5 +1,4 @@
 import Input from "./Input";
-import Button from "./Button";
 import { useState, useContext } from "react";
 import axios from "axios";
 import AuthModalContext from "../Store/AuthModalContext";
@@ -19,12 +18,11 @@ function AuthModal() {
   if (modalContext.show && modalContext.show !== modalType) {
     setModalType(modalContext.show);
   }
-
-  function register(e) {
+  const register = (e) => {
     e.preventDefault();
     const data = { email, username, password };
     axios
-      .post("http://localhost:4000/register", data, { withCredentials: true })
+      .post("api/auth/register", data, { withCredentials: true })
       .then(() => {
         user.setUser({ username });
         modalContext.setShow(false);
@@ -32,18 +30,15 @@ function AuthModal() {
         setPassword("");
         setUsername("");
       });
-  }
+  };
 
-  function login() {
+  const login = () => {
     const data = { username, password };
-    axios
-      .post("http://localhost:4000/login", data, { withCredentials: true })
-      .then(() => {
-        modalContext.setShow(false);
-        user.setUser({ username });
-      });
-  }
-
+    axios.post("api/auth/login", data, { withCredentials: true }).then(() => {
+      modalContext.setShow(false);
+      user.setUser({ username });
+    });
+  };
   return (
     <div
       className={
@@ -52,81 +47,94 @@ function AuthModal() {
       style={{ backgroundColor: "rgba(0,0,0,.6)" }}
     >
       <ClickOutHandler onClickOut={() => modalContext.setShow(false)}>
-        <div className="border border-chalfal_color-brightest w-3/4 sm:w-1/2 lg:w-1/4 bg-chalfal_color p-5 text-chalfal_text self-center mx-auto rounded-md">
-          {modalType === "login" && <h1 className="text-2xl mb-5">Login</h1>}
-          {modalType === "register" && (
-            <h1 className="text-2xl mb-5">Sign Up</h1>
-          )}
-          {modalType === "register" && (
-            <label>
-              <span className="text-chalfal_text-darker text-sm">E-mail:</span>
-              <Input
-                type="email"
-                className="mb-3 w-full"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </label>
-          )}
-          <label>
-            <span className="text-chalfal_text-darker text-sm">Username:</span>
-            <Input
-              type="text"
-              className="mb-3 w-full"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </label>
+        <div class=" p-6 m-auto w-3/4 sm:w-1/2 lg:w-1/4 bg-gray-800 rounded-md shadow-md ">
+          <h1 class="text-3xl font-semibold text-center text-white">
+            {modalType === "login" ? "Login" : "Register"}
+          </h1>
 
-          <label>
-            <span className="text-chalfal_text-darker text-sm">Password:</span>
-            <Input
-              type="password"
-              className="mb-3 w-full"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          {modalType === "login" && (
-            <Button
-              className="w-full mb-3"
-              style={{ borderRadius: ".3rem" }}
-              onClick={() => login()}
-            >
-              Log In
-            </Button>
-          )}
-          {modalType === "register" && (
-            <Button
-              className="w-full mb-3"
-              style={{ borderRadius: ".3rem" }}
-              onClick={(e) => register(e)}
-            >
-              Sign Up
-            </Button>
-          )}
-
-          {modalType === "login" && (
+          <form class="mt-6">
+            {modalType === "register" && (
+              <div>
+                <label for="username" class="block text-sm text-gray-200">
+                  Email
+                </label>
+                <Input
+                  type="email"
+                  className="mb-3 w-full"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+            )}
             <div>
-              New to chalfal?{" "}
+              <label for="username" class="block text-sm mt-4 text-gray-200">
+                Username
+              </label>
+              <Input
+                type="text"
+                className="mb-3 w-full"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex items-center justify-between">
+                <label for="password" class="block text-sm text-gray-200">
+                  Password
+                </label>
+              </div>
+
+              <Input
+                type="password"
+                className="mb-3 w-full"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <div class="mt-6">
+              {modalType === "login" ? (
+                <button
+                  onClick={() => login()}
+                  class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                >
+                  Log In
+                </button>
+              ) : (
+                <button
+                  onClick={(e) => register(e)}
+                  class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                >
+                  Sign Up
+                </button>
+              )}
+            </div>
+          </form>
+
+          {modalType === "login" ? (
+            <p class="mt-8 text-xs font-light text-center text-gray-400">
+              Don't have an account?
               <button
-                className="text-blue-600"
+                href="/"
+                class="font-medium text-gray-200 hover:underline"
                 onClick={() => modalContext.setShow("register")}
               >
-                SIGN UP
+                <span className="ml-2">Create One</span>
               </button>
-            </div>
-          )}
-          {modalType === "register" && (
-            <div>
-              Already have an account?{" "}
+            </p>
+          ) : (
+            <p class="mt-8 text-xs font-light text-center text-gray-400">
+              Already have an account?
               <button
-                className="text-blue-600"
+                href="/"
+                class="font-medium text-gray-200 hover:underline"
                 onClick={() => modalContext.setShow("login")}
-              >
-                LOG IN
+                >
+                  <span className="ml-2">Log In</span>
+                
               </button>
-            </div>
+            </p>
           )}
         </div>
       </ClickOutHandler>
