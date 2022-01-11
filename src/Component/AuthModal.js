@@ -4,7 +4,7 @@ import axios from "axios";
 import AuthModalContext from "../Store/AuthModalContext";
 import ClickOutHandler from "react-clickout-handler";
 import UserContext from "../Store/UserContext";
-
+import {toast} from "react-toastify";
 function AuthModal() {
   const [modalType, setModalType] = useState("login");
   const [email, setEmail] = useState("");
@@ -22,22 +22,32 @@ function AuthModal() {
     e.preventDefault();
     const data = { email, username, password };
     axios
-      .post("api/auth/register", data, { withCredentials: true })
-      .then(() => {
+      .post("http://localhost:4000/api/auth/register", data, {
+        withCredentials: true,
+      })
+      .then((res) => {
         user.setUser({ username });
         modalContext.setShow(false);
         setEmail("");
         setPassword("");
         setUsername("");
+        toast(res.data.success);
+        
+      })
+      .catch((err) => {
+        toast(err.response.data.err);
       });
   };
-
   const login = () => {
     const data = { username, password };
-    axios.post("api/auth/login", data, { withCredentials: true }).then(() => {
-      modalContext.setShow(false);
-      user.setUser({ username });
-    });
+    axios
+      .post("http://localhost:4000/api/auth/login", data, {
+        withCredentials: true,
+      })
+      .then(() => {
+        modalContext.setShow(false);
+        user.setUser({ username });
+      });
   };
   return (
     <div
@@ -54,19 +64,22 @@ function AuthModal() {
 
           <form class="mt-6">
             {modalType === "register" && (
-              <div>
-                <label for="username" class="block text-sm text-gray-200">
-                  Email
-                </label>
-                <Input
-                  type="email"
-                  className="mb-3 w-full"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
+              <>
+                <div>
+                  <label for="username" class="block text-sm text-gray-200">
+                    Email
+                  </label>
+                  <Input
+                    type="email"
+                    className="mb-3 w-full"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeHolder="Email"
+                  />
+                </div>
+              </>
             )}
-            <div>
+            <div class="mt-4">
               <label for="username" class="block text-sm mt-4 text-gray-200">
                 Username
               </label>
@@ -75,6 +88,7 @@ function AuthModal() {
                 className="mb-3 w-full"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                placeHolder="Username"
               />
             </div>
 
@@ -90,6 +104,7 @@ function AuthModal() {
                 className="mb-3 w-full"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                placeHolder="Password"
               />
             </div>
 
@@ -130,9 +145,8 @@ function AuthModal() {
                 href="/"
                 class="font-medium text-gray-200 hover:underline"
                 onClick={() => modalContext.setShow("login")}
-                >
-                  <span className="ml-2">Log In</span>
-                
+              >
+                <span className="ml-2">Log In</span>
               </button>
             </p>
           )}

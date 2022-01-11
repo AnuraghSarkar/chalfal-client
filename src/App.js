@@ -8,19 +8,20 @@ import AuthModalContext from "./Store/AuthModalContext";
 import UserContext from "./Store/UserContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-
-const App=()=> {
+const App = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [user, setUser] = useState({});
   useEffect(() => {
     axios
-      .get("api/auth/user", { withCredentials: true })
+      .get("http://localhost:4000/api/auth/user", { withCredentials: true })
       .then((response) => setUser(response.data));
   }, []);
   function logout() {
     axios
-      .post("api/auth/logout", {}, { withCredentials: true })
+      .post(`http://localhost:4000/api/auth/logout`, { withCredentials: true })
       .then(() => setUser({}));
   }
 
@@ -29,16 +30,17 @@ const App=()=> {
       <AuthModalContext.Provider
         value={{ show: showAuthModal, setShow: setShowAuthModal }}
       >
-        <UserContext.Provider value={{ ...user, logout, setUser }}>
+        <UserContext.Provider value={{ ...user, logout, setUser, }}>
           <Header />
           <AuthModal />
           <BoardHeader />
           <PostForm />
           <PostList />
+          <ToastContainer />
         </UserContext.Provider>
       </AuthModalContext.Provider>
     </div>
   );
-}
+};
 
 export default App;
