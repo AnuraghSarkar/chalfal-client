@@ -4,7 +4,7 @@ import axios from "axios";
 import AuthModalContext from "../Store/AuthModalContext";
 import ClickOutHandler from "react-clickout-handler";
 import UserContext from "../Store/UserContext";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 function AuthModal() {
   const [modalType, setModalType] = useState("login");
   const [email, setEmail] = useState("");
@@ -32,7 +32,6 @@ function AuthModal() {
         setPassword("");
         setUsername("");
         toast(res.data.success);
-        
       })
       .catch((err) => {
         toast(err.response.data.err);
@@ -44,9 +43,13 @@ function AuthModal() {
       .post("http://localhost:4000/api/auth/login", data, {
         withCredentials: true,
       })
-      .then(() => {
+      .then((res) => {
         modalContext.setShow(false);
         user.setUser({ username });
+        toast(res.data.success);
+      })
+      .catch((err) => {
+        toast(err.response.data.err);
       });
   };
   return (
@@ -57,16 +60,16 @@ function AuthModal() {
       style={{ backgroundColor: "rgba(0,0,0,.6)" }}
     >
       <ClickOutHandler onClickOut={() => modalContext.setShow(false)}>
-        <div class=" p-6 m-auto w-3/4 sm:w-1/2 lg:w-1/4 bg-gray-800 rounded-md shadow-md ">
-          <h1 class="text-3xl font-semibold text-center text-white">
+        <div className=" p-6 m-auto w-3/4 sm:w-1/2 lg:w-1/4 bg-gray-800 rounded-md shadow-md ">
+          <h1 className="text-3xl font-semibold text-center text-white">
             {modalType === "login" ? "Login" : "Register"}
           </h1>
 
-          <form class="mt-6">
+          <form className="mt-6">
             {modalType === "register" && (
               <>
                 <div>
-                  <label for="username" class="block text-sm text-gray-200">
+                  <label htmlFor="email" className="block text-sm text-gray-200">
                     Email
                   </label>
                   <Input
@@ -74,13 +77,14 @@ function AuthModal() {
                     className="mb-3 w-full"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeHolder="Email"
+                    placeholder="Email"
+                    required
                   />
                 </div>
               </>
             )}
-            <div class="mt-4">
-              <label for="username" class="block text-sm mt-4 text-gray-200">
+            <div className="mt-4">
+              <label htmlFor="username" className="block text-sm mt-4 text-gray-200">
                 Username
               </label>
               <Input
@@ -88,13 +92,14 @@ function AuthModal() {
                 className="mb-3 w-full"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeHolder="Username"
+                placeholder="Username"
+                required
               />
             </div>
 
-            <div class="mt-4">
-              <div class="flex items-center justify-between">
-                <label for="password" class="block text-sm text-gray-200">
+            <div className="mt-4">
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm text-gray-200">
                   Password
                 </label>
               </div>
@@ -104,22 +109,23 @@ function AuthModal() {
                 className="mb-3 w-full"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeHolder="Password"
+                placeholder="Password"
+                required
               />
             </div>
 
-            <div class="mt-6">
+            <div className="mt-6">
               {modalType === "login" ? (
                 <button
                   onClick={() => login()}
-                  class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                  className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                 >
                   Log In
                 </button>
               ) : (
                 <button
                   onClick={(e) => register(e)}
-                  class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                  className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                 >
                   Sign Up
                 </button>
@@ -128,22 +134,22 @@ function AuthModal() {
           </form>
 
           {modalType === "login" ? (
-            <p class="mt-8 text-xs font-light text-center text-gray-400">
+            <p className="mt-8 text-xs font-light text-center text-gray-400">
               Don't have an account?
               <button
                 href="/"
-                class="font-medium text-gray-200 hover:underline"
+                className="font-medium text-gray-200 hover:underline"
                 onClick={() => modalContext.setShow("register")}
               >
                 <span className="ml-2">Create One</span>
               </button>
             </p>
           ) : (
-            <p class="mt-8 text-xs font-light text-center text-gray-400">
+            <p className="mt-8 text-xs font-light text-center text-gray-400">
               Already have an account?
               <button
                 href="/"
-                class="font-medium text-gray-200 hover:underline"
+                className="font-medium text-gray-200 hover:underline"
                 onClick={() => modalContext.setShow("login")}
               >
                 <span className="ml-2">Log In</span>

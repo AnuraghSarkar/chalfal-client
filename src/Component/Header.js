@@ -16,19 +16,18 @@ import UserContext from "../Store/UserContext";
 import { useState, useContext } from "react";
 import ClickOutHandler from "react-clickout-handler";
 
-const Header = () => {
+const Header =()=> {
   const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] =
     useState("hidden");
-  const toggleUserDropdown = () => {
+  const toggleUserDropdown=()=> {
     if (userDropdownVisibilityClass === "hidden") {
       setUserDropdownVisibilityClass("block");
     } else {
       setUserDropdownVisibilityClass("hidden");
     }
-  };
+  }
   const authModal = useContext(AuthModalContext);
   const user = useContext(UserContext);
-  console.log(user);
   return (
     <header className="w-full bg-chalfal_color p-2">
       <div className="mx-4 flex relative">
@@ -133,6 +132,6 @@ const Header = () => {
       </div>
     </header>
   );
-};
+}
 
 export default Header;
