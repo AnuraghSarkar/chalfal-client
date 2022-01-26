@@ -27,5 +27,14 @@ const createSubreddit = async (subredditObj) => {
   return response.data;
 };
 
-const subService = { getAllSubreddits, getSubreddit, createSubreddit }; //subService is an object
+const subscribeSub = async (id) => {
+  const response = await axios.post(
+    `${baseUrl}/${id}/subscribe`,
+    null,
+    setConfig()
+  );
+  return response.data;
+};
+
+const subService = { getAllSubreddits, getSubreddit, createSubreddit, subscribeSub }; //subService is an object
 export default subService;
