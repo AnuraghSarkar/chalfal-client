@@ -65,6 +65,11 @@ const downvotePost = async (id) => {
   return response.data;
 };
 
+const deletePost = async (id) => {
+  const response = await axios.delete(`${baseUrl}/${id}`, setConfig());
+  return response.data;
+};
+
 const postService = {
   getPosts,
   getSubPosts,
@@ -74,6 +79,7 @@ const postService = {
   getPostComments,
   upvotePost,
   downvotePost,
+  deletePost,
 };
 
 export default postService;
