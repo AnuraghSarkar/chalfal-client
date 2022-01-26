@@ -25,6 +25,13 @@ const getSubPosts = async (limit, page) => {
   return response.data;
 };
 
-const postService = { getPosts, getSubPosts };
+const getSearchResults = async (query, limit, page) => {
+  const response = await axios.get(
+    `${baseUrl}/search/?query=${query}&limit=${limit}&page=${page}`
+  );
+  return response.data;
+};
+
+const postService = { getPosts, getSubPosts, getSearchResults };
 
 export default postService;
