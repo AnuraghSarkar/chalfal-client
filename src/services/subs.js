@@ -10,5 +10,17 @@ const setConfig = () => {
   };
 };
 
-const subService = {}; //subService is an object
+const getAllSubreddits = async () => {
+  const response = await axios.get(baseUrl);
+  return response.data;
+};
+
+const getSubreddit = async (subredditName, sortBy, limit, page) => {
+  const response = await axios.get(
+    `${baseUrl}/r/${subredditName}/?sortby=${sortBy}&limit=${limit}&page=${page}`
+  );
+  return response.data;
+};
+
+const subService = { getAllSubreddits, getSubreddit }; //subService is an object
 export default subService;
