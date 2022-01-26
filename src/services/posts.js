@@ -31,7 +31,11 @@ const getSearchResults = async (query, limit, page) => {
   );
   return response.data;
 };
+const addNew = async (postObj) => {
+  const response = await axios.post(`${baseUrl}`, postObj, setConfig());
+  return response.data;
+};
 
-const postService = { getPosts, getSubPosts, getSearchResults };
+const postService = { getPosts, getSubPosts, getSearchResults, addNew };
 
 export default postService;
