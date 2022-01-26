@@ -35,7 +35,17 @@ const addNew = async (postObj) => {
   const response = await axios.post(`${baseUrl}`, postObj, setConfig());
   return response.data;
 };
+const editPost = async (id, postObj) => {
+  const response = await axios.patch(`${baseUrl}/${id}`, postObj, setConfig());
+  return response.data;
+};
 
-const postService = { getPosts, getSubPosts, getSearchResults, addNew };
+const postService = {
+  getPosts,
+  getSubPosts,
+  getSearchResults,
+  addNew,
+  editPost,
+};
 
 export default postService;
