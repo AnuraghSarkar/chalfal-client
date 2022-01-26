@@ -124,6 +124,23 @@ const postReply = async (postId, commentId, replyObj) => {
   return response.data;
 };
 
+const updateComment = async (postId, commentId, commentObj) => {
+  const response = await axios.patch(
+    `${baseUrl}/${postId}/comment/${commentId}`,
+    commentObj,
+    setConfig()
+  );
+  return response.data;
+};
+
+const removeComment = async (postId, commentId) => {
+  const response = await axios.delete(
+    `${baseUrl}/${postId}/comment/${commentId}`,
+    setConfig()
+  );
+  return response.data;
+};
+
 const postService = {
   getPosts,
   getSubPosts,
@@ -140,6 +157,8 @@ const postService = {
   downvoteReply,
   postComment,
   postReply,
+  updateComment,
+  removeComment,
 };
 
 export default postService;
