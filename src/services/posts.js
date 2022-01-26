@@ -1,6 +1,30 @@
-import axios from 'axios';
-import backendUrl from '..backendUrl';
-import { token } from './auth';
+import axios from "axios";
+import backendUrl from "..backendUrl";
+import { token } from "./auth";
 
 const baseUrl = `${backendUrl}/api/posts`;
 
+const setConfig = () => {
+  return {
+    headers: { "x-auth-token": token },
+  };
+};
+
+const getPosts = async (sortBy, limit, page) => {
+  const response = await axios.get(
+    `${baseUrl}/?sortby=${sortBy}&limit=${limit}&page=${page}`
+  );
+  return response.data;
+};
+
+const getSubPosts = async (limit, page) => {
+  const response = await axios.get(
+    `${baseUrl}/subscribed/?limit=${limit}&page=${page}`,
+    setConfig()
+  );
+  return response.data;
+};
+
+const postService = { getPosts, getSubPosts };
+
+export default postService;
