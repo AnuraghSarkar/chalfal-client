@@ -45,5 +45,18 @@ const updateDescription = async (id, descriptionObj) => {
   return response.data;
 };
 
-const subService = { getAllSubreddits, getSubreddit, createSubreddit, subscribeSub, updateDescription }; //subService is an object
+const getTopSubreddits = async () => {
+  const response = await axios.get(`${baseUrl}/top10`);
+  return response.data;
+};
+
+const subService = {
+  getAllSubreddits,
+  getSubreddit,
+  createSubreddit,
+  subscribeSub,
+  updateDescription,
+  getTopSubreddits,
+}; //subService is an object
+
 export default subService;
