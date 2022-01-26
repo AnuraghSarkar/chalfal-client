@@ -36,5 +36,14 @@ const subscribeSub = async (id) => {
   return response.data;
 };
 
-const subService = { getAllSubreddits, getSubreddit, createSubreddit, subscribeSub }; //subService is an object
+const updateDescription = async (id, descriptionObj) => {
+  const response = await axios.patch(
+    `${baseUrl}/${id}`,
+    descriptionObj,
+    setConfig()
+  );
+  return response.data;
+};
+
+const subService = { getAllSubreddits, getSubreddit, createSubreddit, subscribeSub, updateDescription }; //subService is an object
 export default subService;
