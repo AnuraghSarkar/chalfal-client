@@ -60,4 +60,18 @@ export const logoutUser = () => {
   };
 };
 
+export const setUser = () => {
+  return (dispatch) => {
+    const loggedUser = storageService.loadUser();
+
+    if (loggedUser) {
+      authService.setToken(loggedUser.token);
+
+      dispatch({
+        type: 'SET_USER',
+        payload: loggedUser,
+      });
+    }
+  };
+
 export default userReducer;
