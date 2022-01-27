@@ -116,4 +116,15 @@ const postPageReducer = (state = null, action) => {
   }
 };
 
+export const fetchPostComments = (id) => {
+  return async (dispatch) => {
+    const fetchedPost = await postService.getPostComments(id);
+
+    dispatch({
+      type: "FETCH_POST_COMMENTS",
+      payload: fetchedPost,
+    });
+  };
+};
+
 export default postPageReducer;
