@@ -86,4 +86,16 @@ export const setAvatar = (avatarImage) => {
   };
 };
 
+export const deleteAvatar = () => {
+  return async (dispatch) => {
+    await userService.removeAvatar();
+    const prevUserData = storageService.loadUser();
+    storageService.saveUser({ ...prevUserData, avatar: { exists: false } });
+
+    dispatch({
+      type: "REMOVE_AVATAR",
+    });
+  };
+};
+
 export default userReducer;
