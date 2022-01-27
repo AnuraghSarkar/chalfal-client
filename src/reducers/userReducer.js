@@ -48,4 +48,16 @@ export const signupUser = (credentials) => {
   };
 };
 
+
+export const logoutUser = () => {
+  return (dispatch) => {
+    storageService.logoutUser();
+    authService.setToken(null);
+
+    dispatch({
+      type: "LOGOUT",
+    });
+  };
+};
+
 export default userReducer;
