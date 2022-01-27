@@ -26,4 +26,21 @@ const postReducer = (state = null, action) => {
   }
 };
 
+export const fetchPosts = (sortBy) => {
+  return async (dispatch) => {
+    let posts;
+
+    if (sortBy !== "subscribed") {
+      posts = await postService.getPosts(sortBy, 10, 1);
+    } else {
+      posts = await postService.getSubPosts(10, 1);
+    }
+
+    dispatch({
+      type: "SET_POSTS",
+      payload: posts,
+    });
+  };
+};
+
 export default postReducer;
