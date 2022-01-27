@@ -306,12 +306,11 @@ export const deleteComment = (postId, commentId) => {
     await postService.removeComment(postId, commentId);
 
     dispatch({
-      type: 'DELETE_COMMENT',
+      type: "DELETE_COMMENT",
       payload: commentId,
     });
   };
 };
-
 
 export const editReply = (postId, commentId, replyId, reply) => {
   return async (dispatch) => {
@@ -325,5 +324,15 @@ export const editReply = (postId, commentId, replyId, reply) => {
   };
 };
 
+export const deleteReply = (postId, commentId, replyId) => {
+  return async (dispatch) => {
+    await postService.removeReply(postId, commentId, replyId);
+
+    dispatch({
+      type: "DELETE_REPLY",
+      payload: { commentId, replyId },
+    });
+  };
+};
 
 export default postPageReducer;
