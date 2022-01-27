@@ -34,7 +34,6 @@ export const loginUser = (credentials) => {
   };
 };
 
-
 export const signupUser = (credentials) => {
   return async (dispatch) => {
     const user = await authService.signup(credentials);
@@ -47,7 +46,6 @@ export const signupUser = (credentials) => {
     });
   };
 };
-
 
 export const logoutUser = () => {
   return (dispatch) => {
@@ -68,10 +66,24 @@ export const setUser = () => {
       authService.setToken(loggedUser.token);
 
       dispatch({
-        type: 'SET_USER',
+        type: "SET_USER",
         payload: loggedUser,
       });
     }
   };
+};
+
+export const setAvatar = (avatarImage) => {
+  return async (dispatch) => {
+    const uploadedAvatar = await userService.uploadAvatar({ avatarImage });
+    const prevUserData = storageService.loadUser();
+    storageService.saveUser({ ...prevUserData, ...uploadedAvatar });
+
+    dispatch({
+      type: "SET_AVATAR",
+      payload: uploadedAvatar,
+    });
+  };
+};
 
 export default userReducer;
