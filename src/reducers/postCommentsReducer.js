@@ -289,4 +289,16 @@ export const addReply = (postId, commentId, reply) => {
   };
 };
 
+export const editComment = (postId, commentId, comment) => {
+  return async (dispatch) => {
+    await postService.updateComment(postId, commentId, { comment });
+    const updatedAt = Date.now();
+
+    dispatch({
+      type: "EDIT_COMMENT",
+      payload: { commentId, data: { updatedAt, commentBody: comment } },
+    });
+  };
+};
+
 export default postPageReducer;
