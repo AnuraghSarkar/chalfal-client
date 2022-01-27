@@ -265,4 +265,15 @@ export const toggleReplyDownvote = (
   };
 };
 
+export const addComment = (postId, comment) => {
+  return async (dispatch) => {
+    const addedComment = await postService.postComment(postId, { comment });
+
+    dispatch({
+      type: "ADD_COMMENT",
+      payload: addedComment,
+    });
+  };
+};
+
 export default postPageReducer;
