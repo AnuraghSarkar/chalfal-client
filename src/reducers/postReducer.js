@@ -59,4 +59,20 @@ export const loadMorePosts = (sortBy, page) => {
   };
 };
 
+export const toggleUpvote = (id, upvotedBy, downvotedBy) => {
+  return async (dispatch) => {
+    let pointsCount = upvotedBy.length - downvotedBy.length;
+    if (pointsCount < 0) {
+      pointsCount = 0;
+    }
+
+    dispatch({
+      type: "TOGGLE_VOTE",
+      payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
+    });
+
+    await postService.upvotePost(id);
+  };
+};
+
 export default postReducer;
