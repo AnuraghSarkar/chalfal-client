@@ -34,4 +34,18 @@ export const loginUser = (credentials) => {
   };
 };
 
+
+export const signupUser = (credentials) => {
+  return async (dispatch) => {
+    const user = await authService.signup(credentials);
+    storageService.saveUser(user);
+    authService.setToken(user.token);
+
+    dispatch({
+      type: "SIGNUP",
+      payload: user,
+    });
+  };
+};
+
 export default userReducer;
