@@ -201,4 +201,22 @@ export const toggleCommentUpvote = (
   };
 };
 
+export const toggleCommentDownvote = (
+  postId,
+  commentId,
+  downvotedBy,
+  upvotedBy
+) => {
+  return async (dispatch) => {
+    const pointsCount = upvotedBy.length - downvotedBy.length;
+
+    dispatch({
+      type: "VOTE_COMMENT",
+      payload: { commentId, data: { upvotedBy, pointsCount, downvotedBy } },
+    });
+
+    await postService.downvoteComment(postId, commentId);
+  };
+};
+
 export default postPageReducer;
