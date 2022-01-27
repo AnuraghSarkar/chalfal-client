@@ -43,4 +43,20 @@ export const fetchPosts = (sortBy) => {
   };
 };
 
+export const loadMorePosts = (sortBy, page) => {
+  return async (dispatch) => {
+    let posts;
+    if (sortBy !== "subscribed") {
+      posts = await postService.getPosts(sortBy, 10, page);
+    } else {
+      posts = await postService.getSubPosts(10, page);
+    }
+
+    dispatch({
+      type: "LOAD_MORE_POSTS",
+      payload: posts,
+    });
+  };
+};
+
 export default postReducer;
