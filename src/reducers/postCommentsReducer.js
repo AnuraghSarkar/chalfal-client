@@ -127,4 +127,16 @@ export const fetchPostComments = (id) => {
   };
 };
 
+export const createNewPost = (postObject) => {
+  return async (dispatch) => {
+    const addedPost = await postService.addNew(postObject);
+
+    dispatch({
+      type: "CREATE_NEW_POST",
+      payload: addedPost,
+    });
+
+    return addedPost.id;
+  };
+};
 export default postPageReducer;
