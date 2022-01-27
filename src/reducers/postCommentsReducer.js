@@ -312,4 +312,18 @@ export const deleteComment = (postId, commentId) => {
   };
 };
 
+
+export const editReply = (postId, commentId, replyId, reply) => {
+  return async (dispatch) => {
+    await postService.updateReply(postId, commentId, replyId, { reply });
+    const updatedAt = Date.now();
+
+    dispatch({
+      type: "EDIT_REPLY",
+      payload: { commentId, replyId, data: { updatedAt, replyBody: reply } },
+    });
+  };
+};
+
+
 export default postPageReducer;
