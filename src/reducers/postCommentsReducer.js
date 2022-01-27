@@ -139,4 +139,16 @@ export const createNewPost = (postObject) => {
     return addedPost.id;
   };
 };
+
+export const updatePost = (id, postObject) => {
+  return async (dispatch) => {
+    const updatedPost = await postService.editPost(id, postObject);
+
+    dispatch({
+      type: "UPDATE_POST",
+      payload: updatedPost,
+    });
+  };
+};
+
 export default postPageReducer;
