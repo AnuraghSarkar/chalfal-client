@@ -276,4 +276,17 @@ export const addComment = (postId, comment) => {
   };
 };
 
+export const addReply = (postId, commentId, reply) => {
+  return async (dispatch) => {
+    const addedReply = await postService.postReply(postId, commentId, {
+      reply,
+    });
+
+    dispatch({
+      type: "ADD_REPLY",
+      payload: { commentId, addedReply },
+    });
+  };
+};
+
 export default postPageReducer;
