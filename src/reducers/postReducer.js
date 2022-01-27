@@ -90,4 +90,16 @@ export const toggleDownvote = (id, downvotedBy, upvotedBy) => {
     await postService.downvotePost(id);
   };
 };
+
+export const removePost = (id) => {
+  return async (dispatch) => {
+    await postService.deletePost(id);
+
+    dispatch({
+      type: "DELETE_POST",
+      payload: id,
+    });
+  };
+};
+
 export default postReducer;
