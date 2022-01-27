@@ -335,4 +335,13 @@ export const deleteReply = (postId, commentId, replyId) => {
   };
 };
 
+export const sortComments = (sortBy) => {
+  return (dispatch) => {
+    dispatch({
+      type: "SORT_COMMENTS",
+      payload: sortBy,
+    });
+  };
+};
+
 export default postPageReducer;
