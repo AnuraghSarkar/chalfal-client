@@ -301,4 +301,15 @@ export const editComment = (postId, commentId, comment) => {
   };
 };
 
+export const deleteComment = (postId, commentId) => {
+  return async (dispatch) => {
+    await postService.removeComment(postId, commentId);
+
+    dispatch({
+      type: 'DELETE_COMMENT',
+      payload: commentId,
+    });
+  };
+};
+
 export default postPageReducer;
