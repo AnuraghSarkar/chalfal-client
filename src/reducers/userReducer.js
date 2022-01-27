@@ -21,4 +21,17 @@ const userReducer = (state = null, action) => {
   }
 };
 
+export const loginUser = (credentials) => {
+  return async (dispatch) => {
+    const user = await authService.login(credentials);
+    storageService.saveUser(user);
+    authService.setToken(user.token);
+
+    dispatch({
+      type: "LOGIN",
+      payload: user,
+    });
+  };
+};
+
 export default userReducer;
