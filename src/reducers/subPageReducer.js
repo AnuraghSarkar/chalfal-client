@@ -1,4 +1,5 @@
 import subService from "../services/subs";
+import postService from "../services/posts";
 
 const subPageReducer = (state = null, action) => {
   switch (action.type) {
@@ -56,6 +57,22 @@ export const loadSubPosts = (subredditName, sortBy, page) => {
       type: "LOAD_SUB_POSTS",
       payload: sub,
     });
+  };
+};
+
+export const toggleUpvote = (id, upvotedBy, downvotedBy) => {
+  return async (dispatch) => {
+    let pointsCount = upvotedBy.length - downvotedBy.length;
+    if (pointsCount < 0) {
+      pointsCount = 0;
+    }
+
+    dispatch({
+      type: "TOGGLE_SUBPAGE_VOTE",
+      payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
+    });
+
+    await postService.upvotePost(id);
   };
 };
 
