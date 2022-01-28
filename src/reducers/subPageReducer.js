@@ -105,5 +105,16 @@ export const toggleSubscribe = (id, subscribedBy) => {
   };
 };
 
+export const editDescription = (id, description) => {
+  return async (dispatch) => {
+    await subService.updateDescription(id, { description });
+
+    dispatch({
+      type: "EDIT_DESCRIPTION",
+      payload: description,
+    });
+  };
+};
+
 
 export default subPageReducer;
