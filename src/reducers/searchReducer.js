@@ -32,4 +32,31 @@ export const setSearchResults = (query) => {
   };
 };
 
+export const loadSearchPosts = (query, page) => {
+  return async (dispatch) => {
+    const results = await postService.getSearchResults(query, 10, page);
+
+    dispatch({
+      type: "LOAD_SEARCH_POSTS",
+      payload: results,
+    });
+  };
+};
+
+export const toggleUpvote = (id, upvotedBy, downvotedBy) => {
+  return async (dispatch) => {
+    let pointsCount = upvotedBy.length - downvotedBy.length;
+    if (pointsCount < 0) {
+      pointsCount = 0;
+    }
+
+    dispatch({
+      type: "TOGGLE_SEARCH_VOTE",
+      payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
+    });
+
+    await postService.upvotePost(id);
+  };
+};
+
 export default searchReducer;
