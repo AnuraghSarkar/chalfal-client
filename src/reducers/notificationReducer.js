@@ -30,4 +30,12 @@ export const notify = (message, severity) => {
   };
 };
 
+export const clearNotif = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "CLEAR_NOTIFICATION",
+    });
+  };
+};
+
 export default notificationReducer;
