@@ -92,4 +92,18 @@ export const toggleDownvote = (id, downvotedBy, upvotedBy) => {
   };
 };
 
+export const toggleSubscribe = (id, subscribedBy) => {
+  return async (dispatch) => {
+    const subscriberCount = subscribedBy.length;
+
+    dispatch({
+      type: "SUBSCRIBE_SUB",
+      payload: { subscribedBy, subscriberCount },
+    });
+
+    await subService.subscribeSub(id);
+  };
+};
+
+
 export default subPageReducer;
