@@ -45,4 +45,17 @@ export const setTopSubsList = () => {
   };
 };
 
+export const toggleSubscribe = (id, subscribedBy) => {
+  return async (dispatch) => {
+    const subscriberCount = subscribedBy.length;
+
+    dispatch({
+      type: "SUBSCRIBE_SUB_FROM_LIST",
+      payload: { id, data: { subscribedBy, subscriberCount } },
+    });
+
+    await subService.subscribeSub(id);
+  };
+};
+
 export default subReducer;
