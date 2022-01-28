@@ -39,4 +39,15 @@ export const fetchUser = (username) => {
   };
 };
 
+export const loadUserPosts = (username, page) => {
+  return async (dispatch) => {
+    const user = await userService.getUser(username, 5, page);
+
+    dispatch({
+      type: "LOAD_USER_POSTS",
+      payload: user,
+    });
+  };
+};
+
 export default userPageReducer;
