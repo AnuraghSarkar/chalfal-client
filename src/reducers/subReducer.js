@@ -1,3 +1,5 @@
+import subService from "../services/subs";
+
 const subReducer = (state = null, action) => {
   switch (action.type) {
     case "SET_ALL_SUBS_LIST":
@@ -19,6 +21,17 @@ const subReducer = (state = null, action) => {
     default:
       return state;
   }
+};
+
+export const setSubList = () => {
+  return async (dispatch) => {
+    const subs = await subService.getAllSubreddits();
+
+    dispatch({
+      type: "SET_ALL_SUBS_LIST",
+      payload: subs,
+    });
+  };
 };
 
 export default subReducer;
