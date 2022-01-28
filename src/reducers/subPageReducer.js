@@ -1,3 +1,5 @@
+import subService from "../services/subs";
+
 const subPageReducer = (state = null, action) => {
   switch (action.type) {
     case "FETCH_SUB":
@@ -33,6 +35,17 @@ const subPageReducer = (state = null, action) => {
     default:
       return state;
   }
+};
+
+export const fetchSub = (subredditName, sortBy) => {
+  return async (dispatch) => {
+    const sub = await subService.getSubreddit(subredditName, sortBy, 10, 1);
+
+    dispatch({
+      type: "FETCH_SUB",
+      payload: sub,
+    });
+  };
 };
 
 export default subPageReducer;
