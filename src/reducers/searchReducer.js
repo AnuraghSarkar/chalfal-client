@@ -1,3 +1,5 @@
+import postService from "../services/posts";
+
 const searchReducer = (state = null, action) => {
   switch (action.type) {
     case "SET_SEARCH_RESULTS":
@@ -17,6 +19,17 @@ const searchReducer = (state = null, action) => {
     default:
       return state;
   }
+};
+
+export const setSearchResults = (query) => {
+  return async (dispatch) => {
+    const results = await postService.getSearchResults(query, 10, 1);
+
+    dispatch({
+      type: "SET_SEARCH_RESULTS",
+      payload: results,
+    });
+  };
 };
 
 export default searchReducer;
