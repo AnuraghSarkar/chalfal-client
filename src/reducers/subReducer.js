@@ -34,4 +34,15 @@ export const setSubList = () => {
   };
 };
 
+export const setTopSubsList = () => {
+  return async (dispatch) => {
+    const top10Subs = await subService.getTopSubreddits();
+
+    dispatch({
+      type: "SET_TOP_SUBS_LIST",
+      payload: top10Subs,
+    });
+  };
+};
+
 export default subReducer;
