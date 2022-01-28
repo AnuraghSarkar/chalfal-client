@@ -1,3 +1,6 @@
+import userService from "../services/user";
+import postService from "../services/posts";
+
 const userPageReducer = (state = null, action) => {
   switch (action.type) {
     case "FETCH_USER":
@@ -23,6 +26,17 @@ const userPageReducer = (state = null, action) => {
     default:
       return state;
   }
+};
+
+export const fetchUser = (username) => {
+  return async (dispatch) => {
+    const user = await userService.getUser(username, 5, 1);
+
+    dispatch({
+      type: "FETCH_USER",
+      payload: user,
+    });
+  };
 };
 
 export default userPageReducer;
