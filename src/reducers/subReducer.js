@@ -58,4 +58,18 @@ export const toggleSubscribe = (id, subscribedBy) => {
   };
 };
 
+export const addNewSub = (subredditObj) => {
+  return async (dispatch) => {
+    const createdSub = await subService.createSubreddit(subredditObj);
+
+    dispatch({
+      type: "ADD_NEW_SUB",
+      payload: {
+        subredditName: createdSub.subredditName,
+        id: createdSub.id,
+      },
+    });
+  };
+};
+
 export default subReducer;
