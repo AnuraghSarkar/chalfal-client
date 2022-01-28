@@ -48,4 +48,15 @@ export const fetchSub = (subredditName, sortBy) => {
   };
 };
 
+export const loadSubPosts = (subredditName, sortBy, page) => {
+  return async (dispatch) => {
+    const sub = await subService.getSubreddit(subredditName, sortBy, 10, page);
+
+    dispatch({
+      type: "LOAD_SUB_POSTS",
+      payload: sub,
+    });
+  };
+};
+
 export default subPageReducer;
