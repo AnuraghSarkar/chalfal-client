@@ -50,4 +50,21 @@ export const loadUserPosts = (username, page) => {
   };
 };
 
+
+export const toggleUpvote = (id, upvotedBy, downvotedBy) => {
+  return async (dispatch) => {
+    let pointsCount = upvotedBy.length - downvotedBy.length;
+    if (pointsCount < 0) {
+      pointsCount = 0;
+    }
+
+    dispatch({
+      type: "TOGGLE_USERPAGE_VOTE",
+      payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
+    });
+
+    await postService.upvotePost(id);
+  };
+};
+
 export default userPageReducer;
