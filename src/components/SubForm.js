@@ -30,3 +30,91 @@ const validationSchema = yup.object({
     .max(100, "Must be at most 100 characters")
     .min(3, "Must be at least 3 characters"),
 });
+
+const SubForm = () => {
+  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const classes = useSubredditFormStyles();
+  const history = useHistory();
+
+  const handleCreateSub = async (values, { setSubmitting }) => {
+    try {
+      setSubmitting(true);
+      await dispatch(addNewSub(values));
+      setSubmitting(false);
+      dispatch(
+        notify(`New subreddish created: r/${values.subredditName}`, "success")
+      );
+      history.push(`/r/${values.subredditName}`);
+    } catch (err) {
+      setSubmitting(false);
+      dispatch(notify(getErrorMsg(err), "error"));
+    }
+  };
+
+  return (
+    <div className={classes.formWrapper}>
+      <Formik
+        validateOnChange={true}
+        initialValues={{ subredditName: "", description: "" }}
+        onSubmit={handleCreateSub}
+        validationSchema={validationSchema}
+      >
+        {({ isSubmitting }) => (
+          <Form className={classes.form}>
+            <div className={classes.input}>
+              <Typography
+                className={classes.inputIconText}
+                color="primary"
+                variant="h5"
+              >
+                r/
+              </Typography>
+              <TextInput
+                name="subredditName"
+                type="text"
+                placeholder="Enter name"
+                label="Subreddish Name"
+                required
+                fullWidth
+              />
+            </div>
+            <div className={classes.descInput}>
+              <InfoIcon className={classes.inputIcon} color="primary" />
+              <TextInput
+                name="description"
+                type="text"
+                placeholder="Enter description"
+                label="Description"
+                required
+                fullWidth
+                variant="outlined"
+                multiline
+                rows={2}
+                maxRows={Infinity}
+              />
+            </div>
+            <Button
+              type="submit"
+              color="secondary"
+              variant="contained"
+              size="large"
+              className={classes.submitButton}
+              disabled={isSubmitting}
+              startIcon={<AddIcon />}
+            >
+              {isSubmitting ? "Creating" : "Create Subreddish"}
+            </Button>
+          </Form>
+        )}
+      </Formik>
+      <AlertMessage
+        error={error}
+        severity="error"
+        clearError={() => setError(null)}
+      />
+    </div>
+  );
+};
+
+export default SubForm;
