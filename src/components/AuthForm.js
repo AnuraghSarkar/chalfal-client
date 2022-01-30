@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser, signupUser } from "../reducers/userReducer";
-import * as yup from 'yup';
+import * as yup from "yup";
 
 const validationSchemaSignup = yup.object({
   username: yup
@@ -18,4 +18,9 @@ const validationSchemaSignup = yup.object({
     .string()
     .required("Required")
     .min(6, "Must be at least 6 characters"),
+});
+
+const validationSchemaLogin = yup.object({
+  username: yup.string().required("Required"),
+  password: yup.string().required("Required"),
 });
