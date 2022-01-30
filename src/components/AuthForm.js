@@ -64,5 +64,21 @@ const AuthForm = () => {
         setError(getErrorMsg(err));
       }
     };
+
+      const handleSignup = async (values, { setSubmitting }) => {
+        try {
+          setSubmitting(true);
+          await dispatch(signupUser(values));
+          dispatch(
+            notify(
+              `Welcome, ${values.username}. You've been successfully registered.`,
+              "success"
+            )
+          );
+        } catch (err) {
+          setSubmitting(false);
+          setError(getErrorMsg(err));
+        }
+      };
 };
 export default AuthForm;
