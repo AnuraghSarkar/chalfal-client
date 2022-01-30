@@ -38,7 +38,6 @@ const Navbar = () => {
                     chalfal
                   </Button>
                 </div>
-            </>
           )}
         </Toolbar>
       </AppBar>
