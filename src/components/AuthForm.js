@@ -93,6 +93,30 @@ const AuthForm = () => {
               ? validationSchemaLogin
               : validationSchemaSignup
           }
+        {({ isSubmitting }) => (
+            <>
+              <Form className={classes.form}>
+                <Typography
+                  variant="h5"
+                  color="secondary"
+                  className={classes.formTitle}
+                >
+                  {authType === 'login'
+                    ? 'Login to your account'
+                    : 'Create a new account'}
+                </Typography>
+                <div className={classes.input}>
+                  <PersonIcon className={classes.inputIcon} color="primary" />
+                  <TextInput
+                    name="username"
+                    type="text"
+                    placeholder="Enter username"
+                    label="Username"
+                    required
+                    fullWidth
+                  />
+                              </div>
+                              )}
         ></Formik>
       </div>
     </>
