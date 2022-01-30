@@ -28,6 +28,41 @@ const SubFormModal = ({ type, handleCloseMenu }) => {
     handleClickOpen();
     handleCloseMenu();
   };
-  return <></>;
+  return (
+    <div>
+      {type !== "menu" ? (
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleClickOpen}
+          fullWidth
+          className={classes.createSubBtn}
+          size="large"
+          startIcon={<AddCircleIcon />}
+        >
+          Create New Subchalfal
+        </Button>
+      ) : (
+        <MenuItem onClick={handleOpenMenu}>
+          <ListItemIcon>
+            <AddCircleIcon style={{ marginRight: 7 }} />
+            Create Subchalfal
+          </ListItemIcon>
+        </MenuItem>
+      )}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        maxWidth="sm"
+        classes={{ paper: classes.dialogWrapper }}
+        fullWidth
+      >
+        <DialogTitle onClose={handleClose}>Create a new Subchalfal</DialogTitle>
+        <DialogContent>
+          <SubForm />
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
 };
 export default SubFormModal;
