@@ -93,7 +93,8 @@ const AuthForm = () => {
               ? validationSchemaLogin
               : validationSchemaSignup
           }
-        {({ isSubmitting }) => (
+        >
+          {({ isSubmitting }) => (
             <>
               <Form className={classes.form}>
                 <Typography
@@ -101,9 +102,9 @@ const AuthForm = () => {
                   color="secondary"
                   className={classes.formTitle}
                 >
-                  {authType === 'login'
-                    ? 'Login to your account'
-                    : 'Create a new account'}
+                  {authType === "login"
+                    ? "Login to your account"
+                    : "Create a new account"}
                 </Typography>
                 <div className={classes.input}>
                   <PersonIcon className={classes.inputIcon} color="primary" />
@@ -115,9 +116,40 @@ const AuthForm = () => {
                     required
                     fullWidth
                   />
-                              </div>
-                              )}
-        ></Formik>
+                </div>
+                <div className={classes.input}>
+                  <LockIcon className={classes.inputIcon} color="primary" />
+                  <TextInput
+                    name="password"
+                    type={showPass ? "text" : "password"}
+                    placeholder="Enter password"
+                    label="Password"
+                    required
+                    fullWidth
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={() =>
+                              setShowPass((prevState) => !prevState)
+                            }
+                          >
+                            {showPass ? (
+                              <VisibilityOffIcon color="primary" />
+                            ) : (
+                              <VisibilityIcon color="primary" />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </div>
+
+              </div>
+            </>
+          )}
+        </Formik>
       </div>
     </>
   );
