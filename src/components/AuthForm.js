@@ -145,7 +145,58 @@ const AuthForm = () => {
                     }}
                   />
                 </div>
-
+                <Button
+                  type="submit"
+                  color="secondary"
+                  variant="contained"
+                  size="large"
+                  startIcon={
+                    authType === "login" ? <ExitToAppIcon /> : <PersonAddIcon />
+                  }
+                  className={classes.submitButton}
+                  disabled={isSubmitting}
+                >
+                  {authType === "login"
+                    ? isSubmitting
+                      ? "Logging In"
+                      : "Login"
+                    : isSubmitting
+                    ? "Signing Up"
+                    : "Sign Up"}
+                </Button>
+              </Form>
+              <Divider
+                orientation="vertical"
+                flexItem
+                className={classes.divider}
+              />
+              <div className={classes.sidePanel}>
+                <Typography
+                  variant="h6"
+                  className={classes.switchText}
+                  color="primary"
+                >
+                  {authType === "login"
+                    ? `Don't have an account?`
+                    : "Already have an account?"}
+                </Typography>
+                <Button
+                  onClick={() =>
+                    authType === "login"
+                      ? setAuthType("signup")
+                      : setAuthType("login")
+                  }
+                  fullWidth
+                  size="large"
+                  color="primary"
+                  variant="outlined"
+                  startIcon={
+                    authType === "login" ? <PersonAddIcon /> : <ExitToAppIcon />
+                  }
+                  disabled={isSubmitting}
+                >
+                  {authType === "login" ? "Sign Up" : "Login"}
+                </Button>
               </div>
             </>
           )}
