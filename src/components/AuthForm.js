@@ -45,40 +45,57 @@ const validationSchemaLogin = yup.object({
   password: yup.string().required("Required"),
 });
 
-const AuthForm = () => { 
-    const dispatch = useDispatch();
-    const [authType, setAuthType] = useState("login");
-    const [showPass, setShowPass] = useState(false);
-    const [error, setError] = useState(null);
-    const classes = useAuthStyles(authType)();
+const AuthForm = () => {
+  const dispatch = useDispatch();
+  const [authType, setAuthType] = useState("login");
+  const [showPass, setShowPass] = useState(false);
+  const [error, setError] = useState(null);
+  const classes = useAuthStyles(authType)();
 
-    const handleLogin = async (values, { setSubmitting }) => {
-      try {
-        setSubmitting(true);
-        await dispatch(loginUser(values));
-        dispatch(
-          notify(`Welcome, ${values.username}. You're logged in!`, "success")
-        );
-      } catch (err) {
-        setSubmitting(false);
-        setError(getErrorMsg(err));
-      }
-    };
+  const handleLogin = async (values, { setSubmitting }) => {
+    try {
+      setSubmitting(true);
+      await dispatch(loginUser(values));
+      dispatch(
+        notify(`Welcome, ${values.username}. You're logged in!`, "success")
+      );
+    } catch (err) {
+      setSubmitting(false);
+      setError(getErrorMsg(err));
+    }
+  };
 
-      const handleSignup = async (values, { setSubmitting }) => {
-        try {
-          setSubmitting(true);
-          await dispatch(signupUser(values));
-          dispatch(
-            notify(
-              `Welcome, ${values.username}. You've been successfully registered.`,
-              "success"
-            )
-          );
-        } catch (err) {
-          setSubmitting(false);
-          setError(getErrorMsg(err));
-        }
-      };
+  const handleSignup = async (values, { setSubmitting }) => {
+    try {
+      setSubmitting(true);
+      await dispatch(signupUser(values));
+      dispatch(
+        notify(
+          `Welcome, ${values.username}. You've been successfully registered.`,
+          "success"
+        )
+      );
+    } catch (err) {
+      setSubmitting(false);
+      setError(getErrorMsg(err));
+    }
+  };
+
+  return (
+    <>
+      <div className={classes.authWrapper}>
+        <Formik
+          validateOnChange={true}
+          initialValues={{ username: "", password: "" }}
+          onSubmit={authType === "login" ? handleLogin : handleSignup}
+          validationSchema={
+            authType === "login"
+              ? validationSchemaLogin
+              : validationSchemaSignup
+          }
+        ></Formik>
+      </div>
+    </>
+  );
 };
 export default AuthForm;
