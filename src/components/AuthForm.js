@@ -201,6 +201,13 @@ const AuthForm = () => {
             </>
           )}
         </Formik>
+        <div>
+          <AlertMessage
+            error={error}
+            severity="error"
+            clearError={() => setError(null)}
+          />
+        </div>
       </div>
     </>
   );
