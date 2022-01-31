@@ -39,7 +39,55 @@ const AuthFormModal = ({ closeMobileMenu, type }) => {
     closeMobileMenu();
   };
 
-  return <></>;
+  return (
+    <div>
+      {type === "upvote" ? (
+        <IconButton
+          onClick={handleClickOpen}
+          fontSize={isMobile ? "small" : "medium"}
+        >
+          <ArrowUpwardIcon style={{ color: "#b2b2b2" }} />
+        </IconButton>
+      ) : type === "downvote" ? (
+        <IconButton
+          onClick={handleClickOpen}
+          fontSize={isMobile ? "small" : "medium"}
+        >
+          <ArrowDownwardIcon style={{ color: "#b2b2b2" }} />
+        </IconButton>
+      ) : isMobile ? (
+        <MenuItem onClick={handleMobileMenu}>
+          <ListItemIcon>
+            <ExitToAppIcon style={{ marginRight: 7 }} />
+            Login/Register
+          </ListItemIcon>
+        </MenuItem>
+      ) : (
+        <Button
+          color="primary"
+          onClick={handleClickOpen}
+          className={classesBtn.navButtons}
+        >
+          Login/Register
+        </Button>
+      )}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        maxWidth="md"
+        classes={{ paper: classes.dialogWrapper }}
+      >
+        <DialogTitle onClose={handleClose}></DialogTitle>
+        <DialogContent>
+          <AuthForm />
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+};
+
+AuthFormModal.propTypes = {
+  closeMobileMenu: PropTypes.func,
 };
 
 export default AuthFormModal;
