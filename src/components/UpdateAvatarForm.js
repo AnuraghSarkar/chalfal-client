@@ -93,5 +93,42 @@ const UpdateAvatarForm = ({ closeModal }) => {
             <DeleteDialog type="avatar" handleDelete={handleRemoveAvatar} />
           </div>
         </div>
+            )}
+            <div className={classes.imageBtnsWrapper}>
+        <input
+          type="file"
+          id="image-upload"
+          accept="image/*"
+          hidden
+          onChange={handleFileInputChange}
+        />
+        <Button
+          component="label"
+          htmlFor="image-upload"
+          variant="outlined"
+          color="primary"
+          fullWidth
+          startIcon={avatarInput ? <CheckCircleIcon /> : <PublishIcon />}
+          className={classes.selectBtn}
+        >
+          {avatarInput
+            ? `${isMobile ? '' : 'Selected '}"${fileName}"`
+            : `Select Image`}
+        </Button>
+        {avatarInput && (
+          <IconButton
+            onClick={clearfileSelection}
+            color="secondary"
+            size={isMobile ? 'small' : 'medium'}
+            className={classes.clearSelectionBtn}
+          >
+            <CancelIcon />
+          </IconButton>
+        )}
+      </div>
+      {avatarInput && (
+        <div className={classes.imagePreview}>
+          <img alt={fileName} src={avatarInput} width={isMobile ? 250 : 350} />
+        </div>
       )}
 };
