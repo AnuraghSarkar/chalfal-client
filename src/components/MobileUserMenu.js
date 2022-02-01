@@ -60,7 +60,7 @@ const MobileUserMenu = ({ user, handleLogout }) => {
           <MoreVertIcon color="primary" />
         </IconButton>
       )}
-      <Menu
+      <
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'top',
@@ -73,7 +73,32 @@ const MobileUserMenu = ({ user, handleLogout }) => {
         }}
         open={Boolean(anchorEl)}
         onClose={handleClose}
-      ></Menu>
+      >
+            {loggedUser ? (
+          <div>
+            <MenuItem
+              component={RouterLink}
+              to={`/u/${loggedUser.username}`}
+              onClick={handleClose}
+            >
+              <ListItemIcon>
+                <AccountCircleIcon style={{ marginRight: 7 }} /> My Profile
+              </ListItemIcon>
+            </MenuItem>
+            <SubFormModal type="menu" handleCloseMenu={handleClose} />
+            <UpdateAvatarModal
+              handleCloseMenu={handleClose}
+              user={loggedUser}
+            />
+            <MenuItem onClick={handleLogoutClick}>
+              <ListItemIcon>
+                <PowerSettingsNewIcon style={{ marginRight: 7 }} /> Logout
+              </ListItemIcon>
+            </MenuItem>
+            <Divider variant="middle" />
+            <DarkModeMenuItem closeMenu={handleClose} />
+          </div>
+        ) 
 };
 
 export default MobileUserMenu;
