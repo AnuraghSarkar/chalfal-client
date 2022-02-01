@@ -57,7 +57,42 @@ const DesktopUserMenu = ({ user, handleLogout }) => {
               <Avatar variant="rounded" className={classes.avatar}>
                 {loggedUser.username[0]}
               </Avatar>
-            )}
+                        )}
+                                    <div>
+              <Typography color="secondary">{loggedUser.username}</Typography>
+              <Typography variant="caption" className={classes.karmaWrapper}>
+                <FilterVintageIcon
+                  fontSize="inherit"
+                  style={{ marginRight: '0.2em' }}
+                  color="secondary"
+                />
+                {loggedUser.karma} karma
+              </Typography>
+            </div>
+          </Button>
+          <Menu
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem
+              component={RouterLink}
+              to={`/u/${loggedUser.username}`}
+              onClick={handleClose}
+            >
+              <ListItemIcon>
+                <AccountCircleIcon style={{ marginRight: 7 }} /> My Profile
+              </ListItemIcon>
+            </MenuItem>
     );
 };
 
