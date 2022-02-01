@@ -7,6 +7,25 @@ import DarkModeMenuItem from "./DarkModeMenuItem";
 import { getCircularAvatar } from "../utils/cloudinaryTransform";
 import storageService from "../utils/localStorage";
 
-const MobileUserMenu = ({ user, handleLogout }) => {};
+const MobileUserMenu = ({ user, handleLogout }) => {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const classes = useUserMenuStyles();
+
+    const handleMenu = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    const handleLogoutClick = () => {
+      handleClose();
+      handleLogout();
+    };
+
+    const loggedUser = storageService.loadUser() || user;
+
+};
 
 export default MobileUserMenu;
