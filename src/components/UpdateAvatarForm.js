@@ -19,3 +19,55 @@ import PublishIcon from "@material-ui/icons/Publish";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import FaceIcon from "@material-ui/icons/Face";
+
+const UpdateAvatarForm = ({ closeModal }) => {
+  const classes = useAvatarFormStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state);
+  const [avatarInput, setAvatarInput] = useState("");
+  const [fileName, setFileName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    setFileName(file.name);
+    generateBase64Encode(file, setAvatarInput, true);
+  };
+
+  const clearfileSelection = () => {
+    setAvatarInput("");
+    setFileName("");
+  };
+
+  const handleAvatarUpload = async () => {
+    if (avatarInput === "") {
+      return setError("Select an image file first.");
+    }
+
+    try {
+      setIsLoading(true);
+      await dispatch(setAvatar(avatarInput));
+      setIsLoading(false);
+
+      dispatch(notify("Successfully updated the avatar!", "success"));
+      setAvatarInput("");
+      setFileName("");
+      closeModal();
+    } catch (err) {
+      setIsLoading(false);
+      setError(getErrorMsg(err), "error");
+    }
+  };
+
+  const handleRemoveAvatar = async () => {
+    try {
+      await dispatch(deleteAvatar());
+      dispatch(notify("Removed avatar.", "success"));
+    } catch (err) {
+      setError(getErrorMsg(err), "error");
+    }
+  };
+};
