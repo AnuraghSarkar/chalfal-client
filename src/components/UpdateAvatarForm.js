@@ -69,5 +69,29 @@ const UpdateAvatarForm = ({ closeModal }) => {
     } catch (err) {
       setError(getErrorMsg(err), "error");
     }
-  };
+    };
+    
+    return (
+    <div>
+      {user?.avatar?.exists && (
+        <div>
+          <div className={classes.imagePreview}>
+            <img
+              alt={user.username + '-avatar'}
+              src={user.avatar.imageLink}
+              width={150}
+            />
+          </div>
+          <div className={classes.currentAvatar}>
+            <Typography
+              variant="h6"
+              color="secondary"
+              className={classes.currentAvatarText}
+            >
+              Current Avatar
+            </Typography>
+            <DeleteDialog type="avatar" handleDelete={handleRemoveAvatar} />
+          </div>
+        </div>
+      )}
 };
