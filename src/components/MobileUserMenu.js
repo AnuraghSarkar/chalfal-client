@@ -40,7 +40,7 @@ const MobileUserMenu = ({ user, handleLogout }) => {
 
     const loggedUser = storageService.loadUser() || user;
 
-    return (
+  return (
     <div>
       {loggedUser ? (
         <IconButton onClick={handleMenu} className={classes.userBtnMob}>
@@ -60,21 +60,21 @@ const MobileUserMenu = ({ user, handleLogout }) => {
           <MoreVertIcon color="primary" />
         </IconButton>
       )}
-      <
+      <Menu
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         keepMounted
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-            {loggedUser ? (
+        {loggedUser ? (
           <div>
             <MenuItem
               component={RouterLink}
@@ -98,7 +98,16 @@ const MobileUserMenu = ({ user, handleLogout }) => {
             <Divider variant="middle" />
             <DarkModeMenuItem closeMenu={handleClose} />
           </div>
-        ) 
+        ) : (
+          <div>
+            <AuthFormModal closeMobileMenu={handleClose} />
+            <Divider variant="middle" />
+            <DarkModeMenuItem closeMenu={handleClose} />
+          </div>
+        )}
+      </Menu>
+    </div>
+  );
 };
 
 export default MobileUserMenu;
