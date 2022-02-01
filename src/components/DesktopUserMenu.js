@@ -38,7 +38,27 @@ const DesktopUserMenu = ({ user, handleLogout }) => {
     handleLogout();
   };
 
-  const loggedUser = storageService.loadUser() || user;
+    const loggedUser = storageService.loadUser() || user;
+    
+    return (
+        <div>
+      {loggedUser ? (
+        <>
+          <Button onClick={handleMenu} className={classes.userBtn}>
+            {console.log(loggedUser)}
+            {loggedUser?.avatar?.exists ? (
+              <Avatar
+                alt={loggedUser.username}
+                src={getCircularAvatar(loggedUser.avatar.imageLink)}
+                variant="rounded"
+                className={classes.avatar}
+              />
+            ) : (
+              <Avatar variant="rounded" className={classes.avatar}>
+                {loggedUser.username[0]}
+              </Avatar>
+            )}
+    );
 };
 
 export default DesktopUserMenu;
