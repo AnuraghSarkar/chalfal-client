@@ -157,3 +157,5 @@ const UpdateAvatarForm = ({ closeModal }) => {
     </div>
   );
 };
+
+export default UpdateAvatarForm;
