@@ -38,10 +38,10 @@ const DesktopUserMenu = ({ user, handleLogout }) => {
     handleLogout();
   };
 
-    const loggedUser = storageService.loadUser() || user;
-    
-    return (
-        <div>
+  const loggedUser = storageService.loadUser() || user;
+
+  return (
+    <div>
       {loggedUser ? (
         <>
           <Button onClick={handleMenu} className={classes.userBtn}>
@@ -57,13 +57,13 @@ const DesktopUserMenu = ({ user, handleLogout }) => {
               <Avatar variant="rounded" className={classes.avatar}>
                 {loggedUser.username[0]}
               </Avatar>
-                        )}
-                                    <div>
+            )}
+            <div>
               <Typography color="secondary">{loggedUser.username}</Typography>
               <Typography variant="caption" className={classes.karmaWrapper}>
                 <FilterVintageIcon
                   fontSize="inherit"
-                  style={{ marginRight: '0.2em' }}
+                  style={{ marginRight: "0.2em" }}
                   color="secondary"
                 />
                 {loggedUser.karma} karma
@@ -73,13 +73,13 @@ const DesktopUserMenu = ({ user, handleLogout }) => {
           <Menu
             anchorEl={anchorEl}
             anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
+              vertical: "top",
+              horizontal: "right",
             }}
             keepMounted
             transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
+              vertical: "top",
+              horizontal: "right",
             }}
             open={Boolean(anchorEl)}
             onClose={handleClose}
@@ -93,7 +93,28 @@ const DesktopUserMenu = ({ user, handleLogout }) => {
                 <AccountCircleIcon style={{ marginRight: 7 }} /> My Profile
               </ListItemIcon>
             </MenuItem>
-    );
+            <SubFormModal type="menu" handleCloseMenu={handleClose} />
+            <UpdateAvatarModal
+              handleCloseMenu={handleClose}
+              user={loggedUser}
+            />
+            <MenuItem onClick={handleLogoutClick}>
+              <ListItemIcon>
+                <PowerSettingsNewIcon style={{ marginRight: 7 }} /> Logout
+              </ListItemIcon>
+            </MenuItem>
+            <Divider variant="middle" />
+            <DarkModeMenuItem closeMenu={handleClose} />
+          </Menu>
+        </>
+      ) : (
+        <div className={classes.navItems}>
+          <AuthFormModal />
+          <DarkModeMenuItem closeMenu={handleClose} navItem={true} />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default DesktopUserMenu;
