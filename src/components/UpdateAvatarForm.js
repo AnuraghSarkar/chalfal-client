@@ -69,15 +69,15 @@ const UpdateAvatarForm = ({ closeModal }) => {
     } catch (err) {
       setError(getErrorMsg(err), "error");
     }
-    };
-    
-    return (
+  };
+
+  return (
     <div>
       {user?.avatar?.exists && (
         <div>
           <div className={classes.imagePreview}>
             <img
-              alt={user.username + '-avatar'}
+              alt={user.username + "-avatar"}
               src={user.avatar.imageLink}
               width={150}
             />
@@ -93,8 +93,8 @@ const UpdateAvatarForm = ({ closeModal }) => {
             <DeleteDialog type="avatar" handleDelete={handleRemoveAvatar} />
           </div>
         </div>
-            )}
-            <div className={classes.imageBtnsWrapper}>
+      )}
+      <div className={classes.imageBtnsWrapper}>
         <input
           type="file"
           id="image-upload"
@@ -112,14 +112,14 @@ const UpdateAvatarForm = ({ closeModal }) => {
           className={classes.selectBtn}
         >
           {avatarInput
-            ? `${isMobile ? '' : 'Selected '}"${fileName}"`
+            ? `${isMobile ? "" : "Selected "}"${fileName}"`
             : `Select Image`}
         </Button>
         {avatarInput && (
           <IconButton
             onClick={clearfileSelection}
             color="secondary"
-            size={isMobile ? 'small' : 'medium'}
+            size={isMobile ? "small" : "medium"}
             className={classes.clearSelectionBtn}
           >
             <CancelIcon />
@@ -131,4 +131,29 @@ const UpdateAvatarForm = ({ closeModal }) => {
           <img alt={fileName} src={avatarInput} width={isMobile ? 250 : 350} />
         </div>
       )}
+      <Button
+        size={isMobile ? "medium" : "large"}
+        variant="contained"
+        color="secondary"
+        className={classes.submitButton}
+        fullWidth
+        startIcon={<FaceIcon />}
+        onClick={handleAvatarUpload}
+        disabled={isLoading}
+      >
+        {user?.avatar?.exists
+          ? isLoading
+            ? "Updating"
+            : "Update avatar"
+          : isLoading
+          ? "Adding"
+          : "Add avatar"}
+      </Button>
+      <AlertMessage
+        error={error}
+        severity="error"
+        clearError={() => setError(null)}
+      />
+    </div>
+  );
 };
