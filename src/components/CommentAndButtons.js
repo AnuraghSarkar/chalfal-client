@@ -97,7 +97,48 @@ const CommentAndButtons = ({ isMobile, comment, postId, user }) => {
               {submitting ? 'Updating' : 'Update'}
             </Button>
           </div>
-        </div>
+                  </div>
+                  <div className={classes.btnBar}>
+        {user && (
+          <Button
+            size="small"
+            color="inherit"
+            startIcon={<ReplyIcon />}
+            className={classes.btnStyle}
+            onClick={() => setReplyOpen((prevState) => !prevState)}
+          >
+            Reply
+          </Button>
+        )}
+        {user && user.id === comment.commentedBy.id && (
+          <>
+            <Button
+              size="small"
+              color="inherit"
+              startIcon={<EditIcon />}
+              className={classes.btnStyle}
+              onClick={() => setEditOpen((prevState) => !prevState)}
+            >
+              Edit
+            </Button>
+            <DeleteDialog type="comment" handleDelete={handleCommentDelete} />
+          </>
+        )}
+      </div>
+      {replyOpen && (
+        <div className={classes.inputDiv}>
+          <TextField
+            placeholder={`Reply to ${comment.commentedBy.username}'s comment`}
+            multiline
+            required
+            fullWidth
+            rows={4}
+            rowsMax={Infinity}
+            value={replyInput}
+            onChange={(e) => setReplyInput(e.target.value)}
+            variant="outlined"
+            size={isMobile ? 'small' : 'medium'}
+          />
       )}
 };
 
