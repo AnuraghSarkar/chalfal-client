@@ -88,6 +88,42 @@ const CommentsDisplay = ({ comments, postId, isMobile }) => {
       }
     };
 
+      const handleReplyUpvote = async (commentId, replyId) => {
+        const targetComment = comments.find((c) => c.id === commentId);
+        const { upvotedBy, downvotedBy } = targetComment.replies.find(
+          (r) => r.id === replyId
+        );
+
+        try {
+          if (upvotedBy.includes(user.id)) {
+            const updatedUpvotedBy = upvotedBy.filter((u) => u !== user.id);
+            dispatch(
+              toggleReplyUpvote(
+                postId,
+                commentId,
+                replyId,
+                updatedUpvotedBy,
+                downvotedBy
+              )
+            );
+          } else {
+            const updatedUpvotedBy = [...upvotedBy, user.id];
+            const updatedDownvotedBy = downvotedBy.filter((d) => d !== user.id);
+            dispatch(
+              toggleReplyUpvote(
+                postId,
+                commentId,
+                replyId,
+                updatedUpvotedBy,
+                updatedDownvotedBy
+              )
+            );
+          }
+        } catch (err) {
+          dispatch(notify(getErrorMsg(err), "error"));
+        }
+      };
+
 };
 
 export default CommentsDisplay;
