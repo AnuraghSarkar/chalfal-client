@@ -149,6 +149,27 @@ const CommentsDisplay = ({ comments, postId, isMobile }) => {
       dispatch(notify(getErrorMsg(err), "error"));
     }
   };
+
+  const commentDetails = (by, comment) => {
+    return (
+      <>
+        <Typography variant="caption">
+          <Link component={RouterLink} to={`/u/${by.username}`}>
+            {by.username}
+          </Link>
+          {` ${comment.pointsCount} ${
+            comment.pointsCount === 1 ? "point" : "points"
+          } • `}
+          <TimeAgo datetime={new Date(comment.createdAt)} />
+          {comment.createdAt !== comment.updatedAt && (
+            <em>
+              {" • edited"} <TimeAgo datetime={new Date(comment.updatedAt)} />
+            </em>
+          )}
+        </Typography>
+      </>
+    );
+  };
 };
 
 export default CommentsDisplay;
