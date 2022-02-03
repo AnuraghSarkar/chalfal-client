@@ -57,9 +57,8 @@ const CommentAndButtons = ({ isMobile, comment, postId, user }) => {
     } catch (err) {
       dispatch(notify(getErrorMsg(err), "error"));
     }
-    };
-    
-    
+  };
+
   return (
     <div>
       {!editOpen ? (
@@ -74,7 +73,7 @@ const CommentAndButtons = ({ isMobile, comment, postId, user }) => {
             value={editInput}
             onChange={(e) => setEditInput(e.target.value)}
             variant="outlined"
-            size={isMobile ? 'small' : 'medium'}
+            size={isMobile ? "small" : "medium"}
           />
           <div className={classes.submitBtns}>
             <Button
@@ -94,11 +93,12 @@ const CommentAndButtons = ({ isMobile, comment, postId, user }) => {
               size="small"
               disabled={submitting}
             >
-              {submitting ? 'Updating' : 'Update'}
+              {submitting ? "Updating" : "Update"}
             </Button>
           </div>
-                  </div>
-                  <div className={classes.btnBar}>
+        </div>
+      )}
+      <div className={classes.btnBar}>
         {user && (
           <Button
             size="small"
@@ -137,9 +137,33 @@ const CommentAndButtons = ({ isMobile, comment, postId, user }) => {
             value={replyInput}
             onChange={(e) => setReplyInput(e.target.value)}
             variant="outlined"
-            size={isMobile ? 'small' : 'medium'}
+            size={isMobile ? "small" : "medium"}
           />
+          <div className={classes.submitBtns}>
+            <Button
+              onClick={() => setReplyOpen(false)}
+              color="primary"
+              variant="outlined"
+              size="small"
+              className={classes.cancelBtn}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handlePostReply}
+              color="primary"
+              variant="contained"
+              startIcon={<SendIcon />}
+              size="small"
+              disabled={submitting}
+            >
+              {submitting ? "Replying" : "Reply"}
+            </Button>
+          </div>
+        </div>
       )}
+    </div>
+  );
 };
 
 export default CommentAndButtons;
