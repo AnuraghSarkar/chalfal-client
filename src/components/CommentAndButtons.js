@@ -37,6 +37,27 @@ const CommentAndButtons = ({ isMobile, comment, postId, user }) => {
       dispatch(notify(getErrorMsg(err), "error"));
     }
   };
+  const handleEditComment = async () => {
+    try {
+      setSubmitting(true);
+      await dispatch(editComment(postId, comment.id, editInput));
+      setSubmitting(false);
+      setEditOpen(false);
+      dispatch(notify(`Comment edited!`, "success"));
+    } catch (err) {
+      setSubmitting(false);
+      dispatch(notify(getErrorMsg(err), "error"));
+    }
+  };
+
+  const handleCommentDelete = async () => {
+    try {
+      await dispatch(deleteComment(postId, comment.id));
+      dispatch(notify(`Comment deleted!`, "success"));
+    } catch (err) {
+      dispatch(notify(getErrorMsg(err), "error"));
+    }
+  };
 };
 
 export default CommentAndButtons;
