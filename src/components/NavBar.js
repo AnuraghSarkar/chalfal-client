@@ -1,5 +1,21 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import { Link as RouterLink } from "react-router-dom";
+import { logoutUser } from "../reducers/userReducer";
+import { notify } from "../reducers/notificationReducer";
+import MobileUserMenu from "./MobileUserMenu";
+import DesktopUserMenu from "./DesktopUserMenu";
+import SearchBar from "./SearchBar";
+
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  useMediaQuery,
+  IconButton,
+} from "@material-ui/core";
+
 import {
   AppBar,
   Toolbar,
