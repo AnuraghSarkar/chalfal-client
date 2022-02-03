@@ -57,7 +57,48 @@ const CommentAndButtons = ({ isMobile, comment, postId, user }) => {
     } catch (err) {
       dispatch(notify(getErrorMsg(err), "error"));
     }
-  };
+    };
+    
+    
+  return (
+    <div>
+      {!editOpen ? (
+        <Typography variant="body2">{comment.commentBody}</Typography>
+      ) : (
+        <div className={classes.inputDiv}>
+          <TextField
+            multiline
+            fullWidth
+            rows={2}
+            rowsMax={Infinity}
+            value={editInput}
+            onChange={(e) => setEditInput(e.target.value)}
+            variant="outlined"
+            size={isMobile ? 'small' : 'medium'}
+          />
+          <div className={classes.submitBtns}>
+            <Button
+              onClick={() => setEditOpen(false)}
+              color="primary"
+              variant="outlined"
+              size="small"
+              className={classes.cancelBtn}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleEditComment}
+              color="primary"
+              variant="contained"
+              startIcon={<SendIcon />}
+              size="small"
+              disabled={submitting}
+            >
+              {submitting ? 'Updating' : 'Update'}
+            </Button>
+          </div>
+        </div>
+      )}
 };
 
 export default CommentAndButtons;
