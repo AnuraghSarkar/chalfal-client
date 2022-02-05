@@ -50,4 +50,26 @@ const PostCard = ({ post, toggleUpvote, toggleDownvote }) => {
     } catch (err) {
       dispatch(notify(getErrorMsg(err), 'error'));
     }
-  };
+    };
+      const handleDownvoteToggle = async () => {
+    try {
+      if (isDownvoted) {
+        const updatedDownvotedBy = downvotedBy.filter((d) => d !== user.id);
+        dispatch(toggleDownvote(id, updatedDownvotedBy, upvotedBy));
+      } else {
+        const updatedDownvotedBy = [...downvotedBy, user.id];
+        const updatedUpvotedBy = upvotedBy.filter((u) => u !== user.id);
+        dispatch(toggleDownvote(id, updatedDownvotedBy, updatedUpvotedBy));
+      }
+    } catch (err) {
+      dispatch(notify(getErrorMsg(err), 'error'));
+    }
+    };
+    const linkToShow =
+    postType === 'Link'
+      ? linkSubmission
+      : postType === 'Image'
+      ? imageSubmission.imageLink
+      : '';
+
+  const formattedLink = trimLink(prettifyLink(linkToShow), 30);
