@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { editReply, deleteReply } from "../reducers/postCommentsReducer";
-import { notify } from "../reducers/notificationReducer";
-import DeleteDialog from "./DeleteDialog";
-import getErrorMsg from "../utils/getErrorMsg";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { editReply, deleteReply } from '../reducers/postCommentsReducer';
+import { notify } from '../reducers/notificationReducer';
+import DeleteDialog from './DeleteDialog';
+import getErrorMsg from '../utils/getErrorMsg';
 
-import { TextField, Button, Typography } from "@material-ui/core";
-import { useCommentAndBtnsStyles } from "../styles/muiStyles";
-import SendIcon from "@material-ui/icons/Send";
-import EditIcon from "@material-ui/icons/Edit";
+import { TextField, Button, Typography } from '@material-ui/core';
+import { useCommentAndBtnsStyles } from '../styles/muiStyles';
+import SendIcon from '@material-ui/icons/Send';
+import EditIcon from '@material-ui/icons/Edit';
 
 const ReplyAndButtons = ({ isMobile, reply, postId, commentId, user }) => {
   const [editOpen, setEditOpen] = useState(false);
@@ -23,19 +23,19 @@ const ReplyAndButtons = ({ isMobile, reply, postId, commentId, user }) => {
       await dispatch(editReply(postId, commentId, reply.id, editInput));
       setSubmitting(false);
       setEditOpen(false);
-      dispatch(notify(`Reply edited!`, "success"));
+      dispatch(notify(`Reply edited!`, 'success'));
     } catch (err) {
       setSubmitting(false);
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
   const handleReplyDelete = async () => {
     try {
       await dispatch(deleteReply(postId, commentId, reply.id));
-      dispatch(notify(`Reply deleted!`, "success"));
+      dispatch(notify(`Reply deleted!`, 'success'));
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
@@ -54,7 +54,7 @@ const ReplyAndButtons = ({ isMobile, reply, postId, commentId, user }) => {
             value={editInput}
             onChange={(e) => setEditInput(e.target.value)}
             variant="outlined"
-            size={isMobile ? "small" : "medium"}
+            size={isMobile ? 'small' : 'medium'}
           />
           <div className={classes.submitBtns}>
             <Button
@@ -74,7 +74,7 @@ const ReplyAndButtons = ({ isMobile, reply, postId, commentId, user }) => {
               size="small"
               disabled={submitting}
             >
-              {submitting ? "Updating" : "Update"}
+              {submitting ? 'Updating' : 'Update'}
             </Button>
           </div>
         </div>

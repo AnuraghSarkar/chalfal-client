@@ -1,33 +1,33 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setAvatar, deleteAvatar } from "../reducers/userReducer";
-import { notify } from "../reducers/notificationReducer";
-import DeleteDialog from "./DeleteDialog";
-import generateBase64Encode from "../utils/genBase64Encode";
-import AlertMessage from "./AlertMessage";
-import getErrorMsg from "../utils/getErrorMsg";
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setAvatar, deleteAvatar } from '../reducers/userReducer';
+import { notify } from '../reducers/notificationReducer';
+import DeleteDialog from './DeleteDialog';
+import generateBase64Encode from '../utils/genBase64Encode';
+import AlertMessage from './AlertMessage';
+import getErrorMsg from '../utils/getErrorMsg';
 
 import {
   Button,
   useMediaQuery,
   IconButton,
   Typography,
-} from "@material-ui/core";
-import { useAvatarFormStyles } from "../styles/muiStyles";
-import { useTheme } from "@material-ui/core/styles";
-import PublishIcon from "@material-ui/icons/Publish";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import CancelIcon from "@material-ui/icons/Cancel";
-import FaceIcon from "@material-ui/icons/Face";
+} from '@material-ui/core';
+import { useAvatarFormStyles } from '../styles/muiStyles';
+import { useTheme } from '@material-ui/core/styles';
+import PublishIcon from '@material-ui/icons/Publish';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
+import FaceIcon from '@material-ui/icons/Face';
 
 const UpdateAvatarForm = ({ closeModal }) => {
   const classes = useAvatarFormStyles();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state);
-  const [avatarInput, setAvatarInput] = useState("");
-  const [fileName, setFileName] = useState("");
+  const [avatarInput, setAvatarInput] = useState('');
+  const [fileName, setFileName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -38,13 +38,13 @@ const UpdateAvatarForm = ({ closeModal }) => {
   };
 
   const clearfileSelection = () => {
-    setAvatarInput("");
-    setFileName("");
+    setAvatarInput('');
+    setFileName('');
   };
 
   const handleAvatarUpload = async () => {
-    if (avatarInput === "") {
-      return setError("Select an image file first.");
+    if (avatarInput === '') {
+      return setError('Select an image file first.');
     }
 
     try {
@@ -52,22 +52,22 @@ const UpdateAvatarForm = ({ closeModal }) => {
       await dispatch(setAvatar(avatarInput));
       setIsLoading(false);
 
-      dispatch(notify("Successfully updated the avatar!", "success"));
-      setAvatarInput("");
-      setFileName("");
+      dispatch(notify('Successfully updated the avatar!', 'success'));
+      setAvatarInput('');
+      setFileName('');
       closeModal();
     } catch (err) {
       setIsLoading(false);
-      setError(getErrorMsg(err), "error");
+      setError(getErrorMsg(err), 'error');
     }
   };
 
   const handleRemoveAvatar = async () => {
     try {
       await dispatch(deleteAvatar());
-      dispatch(notify("Removed avatar.", "success"));
+      dispatch(notify('Removed avatar.', 'success'));
     } catch (err) {
-      setError(getErrorMsg(err), "error");
+      setError(getErrorMsg(err), 'error');
     }
   };
 
@@ -77,7 +77,7 @@ const UpdateAvatarForm = ({ closeModal }) => {
         <div>
           <div className={classes.imagePreview}>
             <img
-              alt={user.username + "-avatar"}
+              alt={user.username + '-avatar'}
               src={user.avatar.imageLink}
               width={150}
             />
@@ -112,14 +112,14 @@ const UpdateAvatarForm = ({ closeModal }) => {
           className={classes.selectBtn}
         >
           {avatarInput
-            ? `${isMobile ? "" : "Selected "}"${fileName}"`
+            ? `${isMobile ? '' : 'Selected '}"${fileName}"`
             : `Select Image`}
         </Button>
         {avatarInput && (
           <IconButton
             onClick={clearfileSelection}
             color="secondary"
-            size={isMobile ? "small" : "medium"}
+            size={isMobile ? 'small' : 'medium'}
             className={classes.clearSelectionBtn}
           >
             <CancelIcon />
@@ -132,7 +132,7 @@ const UpdateAvatarForm = ({ closeModal }) => {
         </div>
       )}
       <Button
-        size={isMobile ? "medium" : "large"}
+        size={isMobile ? 'medium' : 'large'}
         variant="contained"
         color="secondary"
         className={classes.submitButton}
@@ -143,11 +143,11 @@ const UpdateAvatarForm = ({ closeModal }) => {
       >
         {user?.avatar?.exists
           ? isLoading
-            ? "Updating"
-            : "Update avatar"
+            ? 'Updating'
+            : 'Update avatar'
           : isLoading
-          ? "Adding"
-          : "Add avatar"}
+          ? 'Adding'
+          : 'Add avatar'}
       </Button>
       <AlertMessage
         error={error}

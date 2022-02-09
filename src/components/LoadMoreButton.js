@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { Button } from "@material-ui/core";
-import { usePostListStyles } from "../styles/muiStyles";
-import AutorenewIcon from "@material-ui/icons/Autorenew";
+import { Button } from '@material-ui/core';
+import { usePostListStyles } from '../styles/muiStyles';
+import AutorenewIcon from '@material-ui/icons/Autorenew';
 
 const LoadMoreButton = ({ handleLoadPosts, loading }) => {
   const classes = usePostListStyles();
@@ -18,7 +18,7 @@ const LoadMoreButton = ({ handleLoadPosts, loading }) => {
         className={classes.loadBtn}
         disabled={loading}
       >
-        {loading ? "Loading..." : "Load more"}
+        {loading ? 'Loading...' : 'Load more'}
       </Button>
     </div>
   );

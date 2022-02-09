@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import AuthFormModal from "./AuthFormModal";
-import SubFormModal from "./SubFormModal";
-import UpdateAvatarModal from "./UpdateAvatarModal";
-import DarkModeMenuItem from "./DarkModeMenuItem";
-import { getCircularAvatar } from "../utils/cloudinaryTransform";
-import storageService from "../utils/localStorage";
+import React, { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import AuthFormModal from './AuthFormModal';
+import SubFormModal from './SubFormModal';
+import UpdateAvatarModal from './UpdateAvatarModal';
+import DarkModeMenuItem from './DarkModeMenuItem';
+import { getCircularAvatar } from '../utils/cloudinaryTransform';
+import storageService from '../utils/localStorage';
 
 import {
   IconButton,
@@ -20,25 +20,24 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
-
 const MobileUserMenu = ({ user, handleLogout }) => {
-    const [anchorEl, setAnchorEl] = useState(null);
-    const classes = useUserMenuStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const classes = useUserMenuStyles();
 
-    const handleMenu = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-    const handleLogoutClick = () => {
-      handleClose();
-      handleLogout();
-    };
+  const handleLogoutClick = () => {
+    handleClose();
+    handleLogout();
+  };
 
-    const loggedUser = storageService.loadUser() || user;
+  const loggedUser = storageService.loadUser() || user;
 
   return (
     <div>
@@ -63,13 +62,13 @@ const MobileUserMenu = ({ user, handleLogout }) => {
       <Menu
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: 'top',
+          horizontal: 'right',
         }}
         keepMounted
         transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: 'top',
+          horizontal: 'right',
         }}
         open={Boolean(anchorEl)}
         onClose={handleClose}

@@ -1,6 +1,6 @@
-import React from "react";
-import { Typography, CircularProgress } from "@material-ui/core";
-import { usePostListStyles } from "../styles/muiStyles";
+import React from 'react';
+import { Typography, CircularProgress } from '@material-ui/core';
+import { usePostListStyles } from '../styles/muiStyles';
 
 const LoadingSpinner = ({ text }) => {
   const classes = usePostListStyles();

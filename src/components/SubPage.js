@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useParams, Link as RouterLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { useParams, Link as RouterLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchSub,
   toggleUpvote,
@@ -8,15 +8,15 @@ import {
   toggleSubscribe,
   editDescription,
   loadSubPosts,
-} from "../reducers/subPageReducer";
-import { notify } from "../reducers/notificationReducer";
-import SortTabBar from "./SortTabBar";
-import PostCard from "./PostCard";
-import LoadMoreButton from "./LoadMoreButton";
-import PostFormModal from "./PostFormModal";
-import ErrorPage from "./ErrorPage";
-import LoadingSpinner from "./LoadingSpinner";
-import getErrorMsg from "../utils/getErrorMsg";
+} from '../reducers/subPageReducer';
+import { notify } from '../reducers/notificationReducer';
+import SortTabBar from './SortTabBar';
+import PostCard from './PostCard';
+import LoadMoreButton from './LoadMoreButton';
+import PostFormModal from './PostFormModal';
+import ErrorPage from './ErrorPage';
+import LoadingSpinner from './LoadingSpinner';
+import getErrorMsg from '../utils/getErrorMsg';
 
 import {
   Container,
@@ -25,15 +25,15 @@ import {
   Button,
   Link,
   TextField,
-} from "@material-ui/core";
-import { useSubPageStyles } from "../styles/muiStyles";
-import CakeIcon from "@material-ui/icons/Cake";
-import PersonIcon from "@material-ui/icons/Person";
-import CheckIcon from "@material-ui/icons/Check";
-import GroupIcon from "@material-ui/icons/Group";
-import AddIcon from "@material-ui/icons/Add";
-import EditIcon from "@material-ui/icons/Edit";
-import PostAddIcon from "@material-ui/icons/PostAdd";
+} from '@material-ui/core';
+import { useSubPageStyles } from '../styles/muiStyles';
+import CakeIcon from '@material-ui/icons/Cake';
+import PersonIcon from '@material-ui/icons/Person';
+import CheckIcon from '@material-ui/icons/Check';
+import GroupIcon from '@material-ui/icons/Group';
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 
 const SubPage = () => {
   const classes = useSubPageStyles();
@@ -41,8 +41,8 @@ const SubPage = () => {
   const dispatch = useDispatch();
   const { user, subPage } = useSelector((state) => state);
   const [editOpen, setEditOpen] = useState(false);
-  const [descInput, setDescInput] = useState("");
-  const [sortBy, setSortBy] = useState("hot");
+  const [descInput, setDescInput] = useState('');
+  const [sortBy, setSortBy] = useState('hot');
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
@@ -52,7 +52,7 @@ const SubPage = () => {
   useEffect(() => {
     const getSub = async () => {
       try {
-        await dispatch(fetchSub(sub, "hot"));
+        await dispatch(fetchSub(sub, 'hot'));
         setPageLoading(false);
       } catch (err) {
         setPageError(getErrorMsg(err));
@@ -82,7 +82,7 @@ const SubPage = () => {
     return (
       <Container disableGutters>
         <Paper variant="outlined" className={classes.mainPaper}>
-          <LoadingSpinner text={"Fetching sub data..."} />
+          <LoadingSpinner text={'Fetching sub data...'} />
         </Paper>
       </Container>
     );
@@ -114,9 +114,9 @@ const SubPage = () => {
       let message = isSubscribed
         ? `Unsubscribed from r/${subredditName}`
         : `Subscribed to r/${subredditName}!`;
-      dispatch(notify(message, "success"));
+      dispatch(notify(message, 'success'));
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
@@ -125,10 +125,10 @@ const SubPage = () => {
       await dispatch(editDescription(id, descInput));
       setEditOpen(false);
       dispatch(
-        notify(`Updated description of your sub: r/${subredditName}`, "success")
+        notify(`Updated description of your sub: r/${subredditName}`, 'success')
       );
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
@@ -144,7 +144,7 @@ const SubPage = () => {
       }
     } catch (err) {
       setPostsLoading(false);
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
@@ -155,7 +155,7 @@ const SubPage = () => {
       setPage((prevState) => prevState + 1);
       setLoadingMore(false);
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
@@ -190,7 +190,7 @@ const SubPage = () => {
                       variant="outlined"
                       size="small"
                       className={classes.cancelBtn}
-                      style={{ padding: "0.2em" }}
+                      style={{ padding: '0.2em' }}
                     >
                       Cancel
                     </Button>
@@ -199,7 +199,7 @@ const SubPage = () => {
                       color="primary"
                       variant="outlined"
                       size="small"
-                      style={{ padding: "0.2em" }}
+                      style={{ padding: '0.2em' }}
                     >
                       Update
                     </Button>
@@ -212,7 +212,7 @@ const SubPage = () => {
                   size="small"
                   variant="outlined"
                   color="primary"
-                  style={{ padding: "0.2em", marginLeft: "0.5em" }}
+                  style={{ padding: '0.2em', marginLeft: '0.5em' }}
                   startIcon={<EditIcon />}
                 >
                   Edit
@@ -225,8 +225,8 @@ const SubPage = () => {
               color="secondary"
             >
               <CakeIcon style={{ marginRight: 5 }} /> Created
-              {" " +
-                String(new Date(createdAt)).split(" ").slice(1, 4).join(" ")}
+              {' ' +
+                String(new Date(createdAt)).split(' ').slice(1, 4).join(' ')}
             </Typography>
             <Typography
               variant="body2"
@@ -238,7 +238,7 @@ const SubPage = () => {
               <Link
                 component={RouterLink}
                 to={`/u/${admin.username}`}
-                style={{ marginLeft: "0.3em" }}
+                style={{ marginLeft: '0.3em' }}
               >
                 u/{admin.username}
               </Link>
@@ -253,7 +253,7 @@ const SubPage = () => {
                 className={classes.joinBtn}
                 onClick={handleSubJoin}
               >
-                {isSubscribed ? "Subscribed" : "Subscribe"}
+                {isSubscribed ? 'Subscribed' : 'Subscribe'}
               </Button>
             )}
             <Typography
@@ -269,7 +269,7 @@ const SubPage = () => {
         <PostFormModal fromSubreddit={{ subredditName, id }} />
         <SortTabBar sortBy={sortBy} handleTabChange={handleTabChange} />
         {postsLoading ? (
-          <LoadingSpinner text={"Fetching subreddit posts..."} />
+          <LoadingSpinner text={'Fetching subreddit posts...'} />
         ) : (
           <>
             <div>
@@ -294,7 +294,7 @@ const SubPage = () => {
                 </div>
               )}
             </div>
-            {"next" in subPage.posts && (
+            {'next' in subPage.posts && (
               <LoadMoreButton
                 handleLoadPosts={handleLoadPosts}
                 loading={loadingMore}

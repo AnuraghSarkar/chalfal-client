@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import PostForm from "./PostForm";
-import HideOnScroll from "./HideOnScroll";
-import { getCircularAvatar } from "../utils/cloudinaryTransform";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import PostForm from './PostForm';
+import HideOnScroll from './HideOnScroll';
+import { getCircularAvatar } from '../utils/cloudinaryTransform';
 
-import { DialogTitle, DialogContent } from "./CustomDialogTitle";
+import { DialogTitle, DialogContent } from './CustomDialogTitle';
 import {
   Dialog,
   Button,
@@ -15,13 +15,13 @@ import {
   useMediaQuery,
   MenuItem,
   ListItemIcon,
-} from "@material-ui/core";
-import { useDialogStyles } from "../styles/muiStyles";
-import { useTheme } from "@material-ui/core/styles";
-import PostAddIcon from "@material-ui/icons/PostAdd";
-import ImageIcon from "@material-ui/icons/Image";
-import LinkIcon from "@material-ui/icons/Link";
-import EditIcon from "@material-ui/icons/Edit";
+} from '@material-ui/core';
+import { useDialogStyles } from '../styles/muiStyles';
+import { useTheme } from '@material-ui/core/styles';
+import PostAddIcon from '@material-ui/icons/PostAdd';
+import ImageIcon from '@material-ui/icons/Image';
+import LinkIcon from '@material-ui/icons/Link';
+import EditIcon from '@material-ui/icons/Edit';
 
 const AddPostModal = ({
   actionType,
@@ -35,12 +35,12 @@ const AddPostModal = ({
   fromSubreddit,
 }) => {
   const [open, setOpen] = useState(false);
-  const [postType, setPostType] = useState("Text");
+  const [postType, setPostType] = useState('Text');
   const user = useSelector((state) => state.user);
 
   const classes = useDialogStyles();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,17 +51,17 @@ const AddPostModal = ({
   };
 
   const handleTextPost = () => {
-    setPostType("Text");
+    setPostType('Text');
     handleClickOpen();
   };
 
   const handleImagePost = () => {
-    setPostType("Image");
+    setPostType('Image');
     handleClickOpen();
   };
 
   const handleLinkPost = () => {
-    setPostType("Link");
+    setPostType('Link');
     handleClickOpen();
   };
 
@@ -76,7 +76,7 @@ const AddPostModal = ({
 
   return (
     <div>
-      {actionType === "edit" ? (
+      {actionType === 'edit' ? (
         <MenuItem onClick={handleMenuClick}>
           <ListItemIcon>
             <EditIcon style={{ marginRight: 7 }} />
@@ -134,7 +134,7 @@ const AddPostModal = ({
         fullWidth={true}
       >
         <DialogTitle onClose={handleClose}>
-          {actionType === "edit" ? "Update your post" : "Add a new post"}
+          {actionType === 'edit' ? 'Update your post' : 'Add a new post'}
         </DialogTitle>
         <DialogContent>
           <PostForm

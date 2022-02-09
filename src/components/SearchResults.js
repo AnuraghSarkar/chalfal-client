@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setSearchResults,
   toggleUpvote,
   toggleDownvote,
   loadSearchPosts,
-} from "../reducers/searchReducer";
-import { notify } from "../reducers/notificationReducer";
-import PostCard from "./PostCard";
-import LoadMoreButton from "./LoadMoreButton";
-import LoadingSpinner from "./LoadingSpinner";
-import getErrorMsg from "../utils/getErrorMsg";
+} from '../reducers/searchReducer';
+import { notify } from '../reducers/notificationReducer';
+import PostCard from './PostCard';
+import LoadMoreButton from './LoadMoreButton';
+import LoadingSpinner from './LoadingSpinner';
+import getErrorMsg from '../utils/getErrorMsg';
 
-import { Container, Paper, Typography } from "@material-ui/core";
-import { useSearchPageStyles } from "../styles/muiStyles";
-import SearchIcon from "@material-ui/icons/Search";
-import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
+import { Container, Paper, Typography } from '@material-ui/core';
+import { useSearchPageStyles } from '../styles/muiStyles';
+import SearchIcon from '@material-ui/icons/Search';
+import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 
 const SearchResults = () => {
   const classes = useSearchPageStyles();
@@ -34,7 +34,7 @@ const SearchResults = () => {
         await dispatch(setSearchResults(query));
         setPageLoading(false);
       } catch (err) {
-        dispatch(notify(getErrorMsg(err), "error"));
+        dispatch(notify(getErrorMsg(err), 'error'));
       }
     };
     getSearchResults();
@@ -46,7 +46,7 @@ const SearchResults = () => {
     return (
       <Container disableGutters>
         <Paper variant="outlined" className={classes.mainPaper}>
-          <LoadingSpinner text={"Searching for matches..."} />
+          <LoadingSpinner text={'Searching for matches...'} />
         </Paper>
       </Container>
     );
@@ -59,7 +59,7 @@ const SearchResults = () => {
       setPage((prevState) => prevState + 1);
       setLoadingMore(false);
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
@@ -72,7 +72,7 @@ const SearchResults = () => {
             color="secondary"
             className={classes.infoPaper}
           >
-            <SearchIcon fontSize="large" style={{ marginRight: "7px" }} />
+            <SearchIcon fontSize="large" style={{ marginRight: '7px' }} />
             Showing search results for "{query}"
           </Typography>
         </Paper>
@@ -94,7 +94,7 @@ const SearchResults = () => {
             Sorry, there were no post results for "{query}"
           </Typography>
         )}
-        {"next" in searchResults && (
+        {'next' in searchResults && (
           <LoadMoreButton
             handleLoadPosts={handleLoadPosts}
             loading={loadingMore}

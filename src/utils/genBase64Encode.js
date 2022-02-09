@@ -5,7 +5,7 @@ const generateBase64Encode = (file, setValue, isSetState) => {
     if (isSetState) {
       setValue(reader.result);
     } else {
-      setValue("imageSubmission", reader.result);
+      setValue('imageSubmission', reader.result);
     }
   };
 };

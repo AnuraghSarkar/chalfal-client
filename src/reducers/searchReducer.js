@@ -1,17 +1,17 @@
-import postService from "../services/posts";
+import postService from '../services/posts';
 
 const searchReducer = (state = null, action) => {
   switch (action.type) {
-    case "SET_SEARCH_RESULTS":
+    case 'SET_SEARCH_RESULTS':
       return action.payload;
-    case "TOGGLE_SEARCH_VOTE":
+    case 'TOGGLE_SEARCH_VOTE':
       return {
         ...state,
         results: state.results.map((r) =>
           r.id !== action.payload.id ? r : { ...r, ...action.payload.data }
         ),
       };
-    case "LOAD_SEARCH_POSTS":
+    case 'LOAD_SEARCH_POSTS':
       return {
         ...action.payload,
         results: [...state.results, ...action.payload.results],
@@ -26,7 +26,7 @@ export const setSearchResults = (query) => {
     const results = await postService.getSearchResults(query, 10, 1);
 
     dispatch({
-      type: "SET_SEARCH_RESULTS",
+      type: 'SET_SEARCH_RESULTS',
       payload: results,
     });
   };
@@ -37,7 +37,7 @@ export const loadSearchPosts = (query, page) => {
     const results = await postService.getSearchResults(query, 10, page);
 
     dispatch({
-      type: "LOAD_SEARCH_POSTS",
+      type: 'LOAD_SEARCH_POSTS',
       payload: results,
     });
   };
@@ -51,7 +51,7 @@ export const toggleUpvote = (id, upvotedBy, downvotedBy) => {
     }
 
     dispatch({
-      type: "TOGGLE_SEARCH_VOTE",
+      type: 'TOGGLE_SEARCH_VOTE',
       payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
     });
 
@@ -67,7 +67,7 @@ export const toggleDownvote = (id, downvotedBy, upvotedBy) => {
     }
 
     dispatch({
-      type: "TOGGLE_SEARCH_VOTE",
+      type: 'TOGGLE_SEARCH_VOTE',
       payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
     });
 

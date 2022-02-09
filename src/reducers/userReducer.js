@@ -1,20 +1,20 @@
-import authService from "../services/auth";
-import userService from "../services/user";
-import storageService from "../utils/localStorage";
+import authService from '../services/auth';
+import userService from '../services/user';
+import storageService from '../utils/localStorage';
 
 const userReducer = (state = null, action) => {
   switch (action.type) {
-    case "LOGIN":
+    case 'LOGIN':
       return action.payload;
-    case "SIGNUP":
+    case 'SIGNUP':
       return action.payload;
-    case "LOGOUT":
+    case 'LOGOUT':
       return null;
-    case "SET_USER":
+    case 'SET_USER':
       return action.payload;
-    case "SET_AVATAR":
+    case 'SET_AVATAR':
       return { ...state, ...action.payload };
-    case "REMOVE_AVATAR":
+    case 'REMOVE_AVATAR':
       return { ...state, avatar: { exists: false } };
     default:
       return state;
@@ -28,7 +28,7 @@ export const loginUser = (credentials) => {
     authService.setToken(user.token);
 
     dispatch({
-      type: "LOGIN",
+      type: 'LOGIN',
       payload: user,
     });
   };
@@ -41,7 +41,7 @@ export const signupUser = (credentials) => {
     authService.setToken(user.token);
 
     dispatch({
-      type: "SIGNUP",
+      type: 'SIGNUP',
       payload: user,
     });
   };
@@ -53,7 +53,7 @@ export const logoutUser = () => {
     authService.setToken(null);
 
     dispatch({
-      type: "LOGOUT",
+      type: 'LOGOUT',
     });
   };
 };
@@ -66,7 +66,7 @@ export const setUser = () => {
       authService.setToken(loggedUser.token);
 
       dispatch({
-        type: "SET_USER",
+        type: 'SET_USER',
         payload: loggedUser,
       });
     }
@@ -80,7 +80,7 @@ export const setAvatar = (avatarImage) => {
     storageService.saveUser({ ...prevUserData, ...uploadedAvatar });
 
     dispatch({
-      type: "SET_AVATAR",
+      type: 'SET_AVATAR',
       payload: uploadedAvatar,
     });
   };
@@ -93,7 +93,7 @@ export const deleteAvatar = () => {
     storageService.saveUser({ ...prevUserData, avatar: { exists: false } });
 
     dispatch({
-      type: "REMOVE_AVATAR",
+      type: 'REMOVE_AVATAR',
     });
   };
 };

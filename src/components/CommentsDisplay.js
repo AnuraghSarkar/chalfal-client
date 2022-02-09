@@ -1,22 +1,22 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link as RouterLink } from "react-router-dom";
-import { UpvoteButton, DownvoteButton } from "./VoteButtons";
-import CommentsAndButtons from "./CommentAndButtons";
-import ReplyAndButtons from "./ReplyAndButtons";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
+import { UpvoteButton, DownvoteButton } from './VoteButtons';
+import CommentsAndButtons from './CommentAndButtons';
+import ReplyAndButtons from './ReplyAndButtons';
 import {
   toggleCommentUpvote,
   toggleCommentDownvote,
   toggleReplyUpvote,
   toggleReplyDownvote,
-} from "../reducers/postCommentsReducer";
-import { notify } from "../reducers/notificationReducer";
-import TimeAgo from "timeago-react";
-import getErrorMsg from "../utils/getErrorMsg";
+} from '../reducers/postCommentsReducer';
+import { notify } from '../reducers/notificationReducer';
+import TimeAgo from 'timeago-react';
+import getErrorMsg from '../utils/getErrorMsg';
 
-import { Typography, Link } from "@material-ui/core";
-import { usePostCommentsStyles } from "../styles/muiStyles";
-import ForumIcon from "@material-ui/icons/Forum";
+import { Typography, Link } from '@material-ui/core';
+import { usePostCommentsStyles } from '../styles/muiStyles';
+import ForumIcon from '@material-ui/icons/Forum';
 
 const CommentsDisplay = ({ comments, postId, isMobile }) => {
   const classes = usePostCommentsStyles();
@@ -45,9 +45,10 @@ const CommentsDisplay = ({ comments, postId, isMobile }) => {
         );
       }
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
+
   const handleCommentDownvote = async (commentId) => {
     const { upvotedBy, downvotedBy } = comments.find((c) => c.id === commentId);
 
@@ -75,7 +76,7 @@ const CommentsDisplay = ({ comments, postId, isMobile }) => {
         );
       }
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
@@ -111,9 +112,10 @@ const CommentsDisplay = ({ comments, postId, isMobile }) => {
         );
       }
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
+
   const handleReplyDownvote = async (commentId, replyId) => {
     const targetComment = comments.find((c) => c.id === commentId);
     const { upvotedBy, downvotedBy } = targetComment.replies.find(
@@ -146,7 +148,7 @@ const CommentsDisplay = ({ comments, postId, isMobile }) => {
         );
       }
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
@@ -158,18 +160,19 @@ const CommentsDisplay = ({ comments, postId, isMobile }) => {
             {by.username}
           </Link>
           {` ${comment.pointsCount} ${
-            comment.pointsCount === 1 ? "point" : "points"
+            comment.pointsCount === 1 ? 'point' : 'points'
           } • `}
           <TimeAgo datetime={new Date(comment.createdAt)} />
           {comment.createdAt !== comment.updatedAt && (
             <em>
-              {" • edited"} <TimeAgo datetime={new Date(comment.updatedAt)} />
+              {' • edited'} <TimeAgo datetime={new Date(comment.updatedAt)} />
             </em>
           )}
         </Typography>
       </>
     );
   };
+
   return (
     <div className={classes.commentsContainer}>
       {comments.length !== 0 ? (

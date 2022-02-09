@@ -1,18 +1,18 @@
-import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleUpvote, toggleDownvote } from "../reducers/userPageReducer";
-import { notify } from "../reducers/notificationReducer";
-import { UpvoteButton, DownvoteButton } from "./VoteButtons";
-import TimeAgo from "timeago-react";
-import ReactHtmlParser from "react-html-parser";
-import { trimLink, prettifyLink, fixUrl } from "../utils/formatUrl";
-import OpenInNewIcon from "@material-ui/icons/OpenInNew";
-import CommentIcon from "@material-ui/icons/Comment";
-import getErrorMsg from "../utils/getErrorMsg";
+import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleUpvote, toggleDownvote } from '../reducers/userPageReducer';
+import { notify } from '../reducers/notificationReducer';
+import { UpvoteButton, DownvoteButton } from './VoteButtons';
+import TimeAgo from 'timeago-react';
+import ReactHtmlParser from 'react-html-parser';
+import { trimLink, prettifyLink, fixUrl } from '../utils/formatUrl';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import CommentIcon from '@material-ui/icons/Comment';
+import getErrorMsg from '../utils/getErrorMsg';
 
-import { Paper, Typography, Link, Button } from "@material-ui/core";
-import { useUserPostCardStyles } from "../styles/muiStyles";
+import { Paper, Typography, Link, Button } from '@material-ui/core';
+import { useUserPostCardStyles } from '../styles/muiStyles';
 
 const UserPostCard = ({ post, user, isMobile }) => {
   const classes = useUserPostCardStyles();
@@ -50,7 +50,7 @@ const UserPostCard = ({ post, user, isMobile }) => {
         dispatch(toggleUpvote(id, updatedUpvotedBy, updatedDownvotedBy));
       }
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
@@ -65,18 +65,18 @@ const UserPostCard = ({ post, user, isMobile }) => {
         dispatch(toggleDownvote(id, updatedDownvotedBy, updatedUpvotedBy));
       }
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
   const formattedLink =
-    postType === "Link" && trimLink(prettifyLink(linkSubmission), 70);
+    postType === 'Link' && trimLink(prettifyLink(linkSubmission), 70);
 
   const trimmedText =
     textSubmission &&
     (textSubmission.length < 100
       ? textSubmission
-      : textSubmission.slice(0, 100).concat("...."));
+      : textSubmission.slice(0, 100).concat('....'));
 
   return (
     <Paper variant="outlined" className={classes.mainPaper}>
@@ -85,18 +85,18 @@ const UserPostCard = ({ post, user, isMobile }) => {
           user={user}
           body={post}
           handleUpvote={handleUpvoteToggle}
-          size={isMobile ? "small" : "medium"}
+          size={isMobile ? 'small' : 'medium'}
         />
         <Typography
           variant="body1"
           style={{
             color: isUpvoted
-              ? "#FF8b60"
+              ? '#FF8b60'
               : isDownvoted
-              ? "#9494FF"
+              ? '#9494FF'
               : darkMode
-              ? "#e4e4e4"
-              : "#333",
+              ? '#e4e4e4'
+              : '#333',
             fontWeight: 600,
           }}
         >
@@ -106,7 +106,7 @@ const UserPostCard = ({ post, user, isMobile }) => {
           user={user}
           body={post}
           handleDownvote={handleDownvoteToggle}
-          size={isMobile ? "small" : "medium"}
+          size={isMobile ? 'small' : 'medium'}
         />
       </div>
       <div
@@ -126,7 +126,7 @@ const UserPostCard = ({ post, user, isMobile }) => {
             • <TimeAgo datetime={new Date(createdAt)} />
             {createdAt !== updatedAt && (
               <em>
-                {" • edited"} <TimeAgo datetime={new Date(updatedAt)} />
+                {' • edited'} <TimeAgo datetime={new Date(updatedAt)} />
               </em>
             )}
           </Typography>
@@ -134,11 +134,11 @@ const UserPostCard = ({ post, user, isMobile }) => {
         <Typography variant="h5" className={classes.title}>
           {title}
         </Typography>
-        {postType === "Text" ? (
+        {postType === 'Text' ? (
           <Typography variant="body1">
             {ReactHtmlParser(trimmedText)}
           </Typography>
-        ) : postType === "Image" ? (
+        ) : postType === 'Image' ? (
           <a
             href={imageSubmission.imageLink}
             alt={title}

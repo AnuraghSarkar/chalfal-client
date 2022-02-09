@@ -1,12 +1,12 @@
-import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleSubscribe } from "../reducers/subReducer";
-import { notify } from "../reducers/notificationReducer";
-import SubFormModal from "./SubFormModal";
-import LoadingSpinner from "./LoadingSpinner";
-import getErrorMsg from "../utils/getErrorMsg";
-import storageService from "../utils/localStorage";
+import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleSubscribe } from '../reducers/subReducer';
+import { notify } from '../reducers/notificationReducer';
+import SubFormModal from './SubFormModal';
+import LoadingSpinner from './LoadingSpinner';
+import getErrorMsg from '../utils/getErrorMsg';
+import storageService from '../utils/localStorage';
 
 import {
   Paper,
@@ -14,18 +14,18 @@ import {
   useMediaQuery,
   Link,
   Button,
-} from "@material-ui/core";
-import { useSubPanelStyles } from "../styles/muiStyles";
-import { useTheme } from "@material-ui/core/styles";
-import AddIcon from "@material-ui/icons/Add";
-import CheckIcon from "@material-ui/icons/Check";
+} from '@material-ui/core';
+import { useSubPanelStyles } from '../styles/muiStyles';
+import { useTheme } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
+import CheckIcon from '@material-ui/icons/Check';
 
 const TopSubsPanel = () => {
   const { subs, user } = useSelector((state) => state);
   const dispatch = useDispatch();
   const classes = useSubPanelStyles();
   const theme = useTheme();
-  const isNotDesktop = useMediaQuery(theme.breakpoints.down("md"));
+  const isNotDesktop = useMediaQuery(theme.breakpoints.down('md'));
 
   if (isNotDesktop) {
     return null;
@@ -53,9 +53,9 @@ const TopSubsPanel = () => {
       let message = subscribedBy.includes(user.id)
         ? `Unsubscribed from r/${subredditName}`
         : `Subscribed to r/${subredditName}!`;
-      dispatch(notify(message, "success"));
+      dispatch(notify(message, 'success'));
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
@@ -97,7 +97,7 @@ const TopSubsPanel = () => {
                     handleJoinSub(s.id, s.subscribedBy, s.subredditName)
                   }
                 >
-                  {isSubscribed(s.subscribedBy, user) ? "Joined" : "Join"}
+                  {isSubscribed(s.subscribedBy, user) ? 'Joined' : 'Join'}
                 </Button>
               )}
             </div>

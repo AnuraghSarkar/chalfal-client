@@ -1,16 +1,16 @@
-import postService from "../services/posts";
+import postService from '../services/posts';
 
 const postPageReducer = (state = null, action) => {
   switch (action.type) {
-    case "FETCH_POST_COMMENTS":
+    case 'FETCH_POST_COMMENTS':
       return action.payload;
-    case "CREATE_NEW_POST":
+    case 'CREATE_NEW_POST':
       return action.payload;
-    case "UPDATE_POST":
+    case 'UPDATE_POST':
       return action.payload;
-    case "TOGGLE_VOTE":
+    case 'TOGGLE_VOTE':
       return { ...state, ...action.payload };
-    case "VOTE_COMMENT":
+    case 'VOTE_COMMENT':
       return {
         ...state,
         comments: state.comments.map((c) =>
@@ -19,7 +19,7 @@ const postPageReducer = (state = null, action) => {
             : { ...c, ...action.payload.data }
         ),
       };
-    case "VOTE_REPLY":
+    case 'VOTE_REPLY':
       return {
         ...state,
         comments: state.comments.map((c) =>
@@ -35,12 +35,12 @@ const postPageReducer = (state = null, action) => {
               }
         ),
       };
-    case "ADD_COMMENT":
+    case 'ADD_COMMENT':
       return {
         ...state,
         comments: [...state.comments, action.payload],
       };
-    case "ADD_REPLY":
+    case 'ADD_REPLY':
       return {
         ...state,
         comments: state.comments.map((c) =>
@@ -49,7 +49,7 @@ const postPageReducer = (state = null, action) => {
             : { ...c, replies: [...c.replies, action.payload.addedReply] }
         ),
       };
-    case "EDIT_COMMENT":
+    case 'EDIT_COMMENT':
       return {
         ...state,
         comments: state.comments.map((c) =>
@@ -58,12 +58,12 @@ const postPageReducer = (state = null, action) => {
             : { ...c, ...action.payload.data }
         ),
       };
-    case "DELETE_COMMENT":
+    case 'DELETE_COMMENT':
       return {
         ...state,
         comments: state.comments.filter((c) => c.id !== action.payload),
       };
-    case "EDIT_REPLY":
+    case 'EDIT_REPLY':
       return {
         ...state,
         comments: state.comments.map((c) =>
@@ -79,7 +79,7 @@ const postPageReducer = (state = null, action) => {
               }
         ),
       };
-    case "DELETE_REPLY":
+    case 'DELETE_REPLY':
       return {
         ...state,
         comments: state.comments.map((c) =>
@@ -93,18 +93,18 @@ const postPageReducer = (state = null, action) => {
               }
         ),
       };
-    case "SORT_COMMENTS":
+    case 'SORT_COMMENTS':
       return {
         ...state,
         comments: state.comments.sort((a, b) => {
           switch (action.payload) {
-            case "new":
+            case 'new':
               return new Date(b.createdAt) - new Date(a.createdAt);
-            case "upvoted":
+            case 'upvoted':
               return b.pointsCount - a.pointsCount;
-            case "downvoted":
+            case 'downvoted':
               return a.pointsCount - b.pointsCount;
-            case "replied":
+            case 'replied':
               return b.replies.length - a.replies.length;
             default:
               return new Date(a.createdAt) - new Date(b.createdAt);
@@ -121,7 +121,7 @@ export const fetchPostComments = (id) => {
     const fetchedPost = await postService.getPostComments(id);
 
     dispatch({
-      type: "FETCH_POST_COMMENTS",
+      type: 'FETCH_POST_COMMENTS',
       payload: fetchedPost,
     });
   };
@@ -132,7 +132,7 @@ export const createNewPost = (postObject) => {
     const addedPost = await postService.addNew(postObject);
 
     dispatch({
-      type: "CREATE_NEW_POST",
+      type: 'CREATE_NEW_POST',
       payload: addedPost,
     });
 
@@ -145,7 +145,7 @@ export const updatePost = (id, postObject) => {
     const updatedPost = await postService.editPost(id, postObject);
 
     dispatch({
-      type: "UPDATE_POST",
+      type: 'UPDATE_POST',
       payload: updatedPost,
     });
   };
@@ -159,7 +159,7 @@ export const toggleUpvote = (id, upvotedBy, downvotedBy) => {
     }
 
     dispatch({
-      type: "TOGGLE_VOTE",
+      type: 'TOGGLE_VOTE',
       payload: { upvotedBy, pointsCount, downvotedBy },
     });
 
@@ -175,7 +175,7 @@ export const toggleDownvote = (id, downvotedBy, upvotedBy) => {
     }
 
     dispatch({
-      type: "TOGGLE_VOTE",
+      type: 'TOGGLE_VOTE',
       payload: { upvotedBy, pointsCount, downvotedBy },
     });
 
@@ -193,7 +193,7 @@ export const toggleCommentUpvote = (
     const pointsCount = upvotedBy.length - downvotedBy.length;
 
     dispatch({
-      type: "VOTE_COMMENT",
+      type: 'VOTE_COMMENT',
       payload: { commentId, data: { upvotedBy, pointsCount, downvotedBy } },
     });
 
@@ -211,7 +211,7 @@ export const toggleCommentDownvote = (
     const pointsCount = upvotedBy.length - downvotedBy.length;
 
     dispatch({
-      type: "VOTE_COMMENT",
+      type: 'VOTE_COMMENT',
       payload: { commentId, data: { upvotedBy, pointsCount, downvotedBy } },
     });
 
@@ -230,7 +230,7 @@ export const toggleReplyUpvote = (
     const pointsCount = upvotedBy.length - downvotedBy.length;
 
     dispatch({
-      type: "VOTE_REPLY",
+      type: 'VOTE_REPLY',
       payload: {
         commentId,
         replyId,
@@ -253,7 +253,7 @@ export const toggleReplyDownvote = (
     const pointsCount = upvotedBy.length - downvotedBy.length;
 
     dispatch({
-      type: "VOTE_REPLY",
+      type: 'VOTE_REPLY',
       payload: {
         commentId,
         replyId,
@@ -270,7 +270,7 @@ export const addComment = (postId, comment) => {
     const addedComment = await postService.postComment(postId, { comment });
 
     dispatch({
-      type: "ADD_COMMENT",
+      type: 'ADD_COMMENT',
       payload: addedComment,
     });
   };
@@ -283,7 +283,7 @@ export const addReply = (postId, commentId, reply) => {
     });
 
     dispatch({
-      type: "ADD_REPLY",
+      type: 'ADD_REPLY',
       payload: { commentId, addedReply },
     });
   };
@@ -295,7 +295,7 @@ export const editComment = (postId, commentId, comment) => {
     const updatedAt = Date.now();
 
     dispatch({
-      type: "EDIT_COMMENT",
+      type: 'EDIT_COMMENT',
       payload: { commentId, data: { updatedAt, commentBody: comment } },
     });
   };
@@ -306,7 +306,7 @@ export const deleteComment = (postId, commentId) => {
     await postService.removeComment(postId, commentId);
 
     dispatch({
-      type: "DELETE_COMMENT",
+      type: 'DELETE_COMMENT',
       payload: commentId,
     });
   };
@@ -318,7 +318,7 @@ export const editReply = (postId, commentId, replyId, reply) => {
     const updatedAt = Date.now();
 
     dispatch({
-      type: "EDIT_REPLY",
+      type: 'EDIT_REPLY',
       payload: { commentId, replyId, data: { updatedAt, replyBody: reply } },
     });
   };
@@ -329,7 +329,7 @@ export const deleteReply = (postId, commentId, replyId) => {
     await postService.removeReply(postId, commentId, replyId);
 
     dispatch({
-      type: "DELETE_REPLY",
+      type: 'DELETE_REPLY',
       payload: { commentId, replyId },
     });
   };
@@ -338,7 +338,7 @@ export const deleteReply = (postId, commentId, replyId) => {
 export const sortComments = (sortBy) => {
   return (dispatch) => {
     dispatch({
-      type: "SORT_COMMENTS",
+      type: 'SORT_COMMENTS',
       payload: sortBy,
     });
   };

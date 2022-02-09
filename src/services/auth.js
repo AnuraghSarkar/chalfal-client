@@ -8,25 +8,15 @@ const setToken = (newToken) => {
 };
 
 const login = async (credentials) => {
-  await axios.post(`${backendUrl}/api/login`, credentials).then((response) => {
-    return response.data
-  }).catch((err) => {
-    return err.response.data
-  });
+  const response = await axios.post(`${backendUrl}/api/login`, credentials);
+  return response.data;
 };
 
 const signup = async (enteredData) => {
-  await axios.post(`${backendUrl}/api/signup`, enteredData).then((response) => {
-    return response.data
-  }).catch((err) => {
-    return err.response.data
-  });
+  const response = await axios.post(`${backendUrl}/api/signup`, enteredData);
+  return response.data;
 };
 
-const authService = {
-  setToken,
-  login,
-  signup
-};
+const authService = { setToken, login, signup };
 
 export default authService;

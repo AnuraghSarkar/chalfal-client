@@ -1,13 +1,13 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link as RouterLink } from "react-router-dom";
-import { UpvoteButton, DownvoteButton } from "./VoteButtons";
-import { notify } from "../reducers/notificationReducer";
-import EditDeleteMenu from "./EditDeleteMenu";
-import getEditedThumbail from "../utils/cloudinaryTransform";
-import { trimLink, prettifyLink, fixUrl } from "../utils/formatUrl";
-import TimeAgo from "timeago-react";
-import getErrorMsg from "../utils/getErrorMsg";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
+import { UpvoteButton, DownvoteButton } from './VoteButtons';
+import { notify } from '../reducers/notificationReducer';
+import EditDeleteMenu from './EditDeleteMenu';
+import getEditedThumbail from '../utils/cloudinaryTransform';
+import { trimLink, prettifyLink, fixUrl } from '../utils/formatUrl';
+import TimeAgo from 'timeago-react';
+import getErrorMsg from '../utils/getErrorMsg';
 
 import {
   Paper,
@@ -16,13 +16,13 @@ import {
   CardMedia,
   Link,
   Button,
-} from "@material-ui/core";
-import { useCardStyles } from "../styles/muiStyles";
-import { useTheme } from "@material-ui/core/styles";
-import MessageIcon from "@material-ui/icons/Message";
-import LinkIcon from "@material-ui/icons/Link";
-import OpenInNewIcon from "@material-ui/icons/OpenInNew";
-import CommentIcon from "@material-ui/icons/Comment";
+} from '@material-ui/core';
+import { useCardStyles } from '../styles/muiStyles';
+import { useTheme } from '@material-ui/core/styles';
+import MessageIcon from '@material-ui/icons/Message';
+import LinkIcon from '@material-ui/icons/Link';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import CommentIcon from '@material-ui/icons/Comment';
 
 const PostCard = ({ post, toggleUpvote, toggleDownvote }) => {
   const {
@@ -44,7 +44,7 @@ const PostCard = ({ post, toggleUpvote, toggleDownvote }) => {
 
   const classes = useCardStyles();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const dispatch = useDispatch();
   const { user, darkMode } = useSelector((state) => state);
 
@@ -62,9 +62,10 @@ const PostCard = ({ post, toggleUpvote, toggleDownvote }) => {
         dispatch(toggleUpvote(id, updatedUpvotedBy, updatedDownvotedBy));
       }
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
+
   const handleDownvoteToggle = async () => {
     try {
       if (isDownvoted) {
@@ -76,17 +77,19 @@ const PostCard = ({ post, toggleUpvote, toggleDownvote }) => {
         dispatch(toggleDownvote(id, updatedDownvotedBy, updatedUpvotedBy));
       }
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
+
   const linkToShow =
-    postType === "Link"
+    postType === 'Link'
       ? linkSubmission
-      : postType === "Image"
+      : postType === 'Image'
       ? imageSubmission.imageLink
-      : "";
+      : '';
 
   const formattedLink = trimLink(prettifyLink(linkToShow), 30);
+
   return (
     <Paper className={classes.root} variant="outlined">
       <div className={classes.votesWrapper}>
@@ -94,18 +97,18 @@ const PostCard = ({ post, toggleUpvote, toggleDownvote }) => {
           user={user}
           body={post}
           handleUpvote={handleUpvoteToggle}
-          size={isMobile ? "small" : "medium"}
+          size={isMobile ? 'small' : 'medium'}
         />
         <Typography
           variant="body1"
           style={{
             color: isUpvoted
-              ? "#FF8b60"
+              ? '#FF8b60'
               : isDownvoted
-              ? "#9494FF"
+              ? '#9494FF'
               : darkMode
-              ? "#e4e4e4"
-              : "#333",
+              ? '#e4e4e4'
+              : '#333',
             fontWeight: 600,
           }}
         >
@@ -115,27 +118,27 @@ const PostCard = ({ post, toggleUpvote, toggleDownvote }) => {
           user={user}
           body={post}
           handleDownvote={handleDownvoteToggle}
-          size={isMobile ? "small" : "medium"}
+          size={isMobile ? 'small' : 'medium'}
         />
       </div>
       <div className={classes.thumbnailWrapper}>
-        {postType === "Text" ? (
+        {postType === 'Text' ? (
           <RouterLink to={`/comments/${id}`}>
             <Paper elevation={0} square className={classes.thumbnail}>
               <MessageIcon
                 fontSize="inherit"
                 className={classes.thumbnailIcon}
-                style={{ color: "#787878" }}
+                style={{ color: '#787878' }}
               />
             </Paper>
           </RouterLink>
-        ) : postType === "Link" ? (
+        ) : postType === 'Link' ? (
           <a href={fixUrl(linkSubmission)} target="_noblank">
             <Paper elevation={0} square className={classes.thumbnail}>
               <LinkIcon
                 fontSize="inherit"
                 className={classes.thumbnailIcon}
-                style={{ color: "#787878" }}
+                style={{ color: '#787878' }}
               />
             </Paper>
           </a>
@@ -154,19 +157,19 @@ const PostCard = ({ post, toggleUpvote, toggleDownvote }) => {
       </div>
       <div className={classes.postInfoWrapper}>
         <Typography variant="h6" className={classes.title}>
-          {title}{" "}
+          {title}{' '}
           <Typography variant="caption" color="primary" className={classes.url}>
             <Link
               href={
-                postType === "Link"
+                postType === 'Link'
                   ? fixUrl(linkSubmission)
-                  : postType === "Image"
+                  : postType === 'Image'
                   ? imageSubmission.imageLink
-                  : ""
+                  : ''
               }
             >
               {formattedLink}
-              {postType === "Text" ? null : (
+              {postType === 'Text' ? null : (
                 <OpenInNewIcon fontSize="inherit" />
               )}
             </Link>
@@ -177,12 +180,12 @@ const PostCard = ({ post, toggleUpvote, toggleDownvote }) => {
             r/{subreddit.subredditName}
           </Link>
           <Typography variant="caption" className={classes.userAndDate}>
-            Posted by{" "}
+            Posted by{' '}
             <Link component={RouterLink} to={`/u/${author.username}`}>
               u/{author.username}
-            </Link>{" "}
+            </Link>{' '}
             • <TimeAgo datetime={new Date(createdAt)} />
-            {createdAt !== updatedAt && "*"}
+            {createdAt !== updatedAt && '*'}
           </Typography>
         </Typography>
         <div className={classes.bottomBtns}>
@@ -191,7 +194,7 @@ const PostCard = ({ post, toggleUpvote, toggleDownvote }) => {
             className={classes.commentsBtn}
             component={RouterLink}
             to={`/comments/${id}`}
-            size={isMobile ? "small" : "medium"}
+            size={isMobile ? 'small' : 'medium'}
           >
             {commentCount} comments
           </Button>

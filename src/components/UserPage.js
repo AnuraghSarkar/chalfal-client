@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUser, loadUserPosts } from "../reducers/userPageReducer";
-import { notify } from "../reducers/notificationReducer";
-import { getCircularAvatar } from "../utils/cloudinaryTransform";
-import UserPostCard from "./UserPostCard";
-import ErrorPage from "./ErrorPage";
-import LoadMoreButton from "./LoadMoreButton";
-import LoadingSpinner from "./LoadingSpinner";
-import getErrorMsg from "../utils/getErrorMsg";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUser, loadUserPosts } from '../reducers/userPageReducer';
+import { notify } from '../reducers/notificationReducer';
+import { getCircularAvatar } from '../utils/cloudinaryTransform';
+import UserPostCard from './UserPostCard';
+import ErrorPage from './ErrorPage';
+import LoadMoreButton from './LoadMoreButton';
+import LoadingSpinner from './LoadingSpinner';
+import getErrorMsg from '../utils/getErrorMsg';
 
 import {
   Container,
@@ -16,16 +16,16 @@ import {
   useMediaQuery,
   Typography,
   Avatar,
-} from "@material-ui/core";
-import { useUserPageStyles } from "../styles/muiStyles";
-import { useTheme } from "@material-ui/core/styles";
-import CakeIcon from "@material-ui/icons/Cake";
-import PersonIcon from "@material-ui/icons/Person";
+} from '@material-ui/core';
+import { useUserPageStyles } from '../styles/muiStyles';
+import { useTheme } from '@material-ui/core/styles';
+import CakeIcon from '@material-ui/icons/Cake';
+import PersonIcon from '@material-ui/icons/Person';
 
 const UserPage = () => {
   const classes = useUserPageStyles();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const { username } = useParams();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userPage);
@@ -41,7 +41,7 @@ const UserPage = () => {
         await dispatch(fetchUser(username));
         setPageLoading(false);
       } catch (err) {
-        setPageError(getErrorMsg(err), "error");
+        setPageError(getErrorMsg(err), 'error');
       }
     };
     getUser();
@@ -84,7 +84,7 @@ const UserPage = () => {
       setPage((prevState) => prevState + 1);
       setLoadingMore(false);
     } catch (err) {
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
@@ -101,7 +101,7 @@ const UserPage = () => {
               />
             ) : (
               <Avatar
-                style={{ backgroundColor: "#941a1c" }}
+                style={{ backgroundColor: '#941a1c' }}
                 className={classes.avatar}
               >
                 <h1>{userName[0]}</h1>
@@ -123,7 +123,7 @@ const UserPage = () => {
                   className={classes.cakeDay}
                 >
                   <CakeIcon />
-                  {String(new Date(createdAt)).split(" ").slice(1, 4).join(" ")}
+                  {String(new Date(createdAt)).split(' ').slice(1, 4).join(' ')}
                 </Typography>
               </div>
               <div className={classes.twoItemsDiv}>
@@ -174,7 +174,7 @@ const UserPage = () => {
             </div>
           )}
         </div>
-        {"next" in userInfo.posts && (
+        {'next' in userInfo.posts && (
           <LoadMoreButton
             handleLoadPosts={handleLoadPosts}
             loading={loadingMore}
