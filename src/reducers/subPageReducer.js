@@ -1,11 +1,11 @@
-import subService from "../services/subs";
-import postService from "../services/posts";
+import subService from '../services/subs';
+import postService from '../services/posts';
 
 const subPageReducer = (state = null, action) => {
   switch (action.type) {
-    case "FETCH_SUB":
+    case 'FETCH_SUB':
       return action.payload;
-    case "LOAD_SUB_POSTS":
+    case 'LOAD_SUB_POSTS':
       return {
         ...state,
         posts: {
@@ -13,7 +13,7 @@ const subPageReducer = (state = null, action) => {
           results: [...state.posts.results, ...action.payload.posts.results],
         },
       };
-    case "TOGGLE_SUBPAGE_VOTE":
+    case 'TOGGLE_SUBPAGE_VOTE':
       return {
         ...state,
         posts: {
@@ -23,12 +23,12 @@ const subPageReducer = (state = null, action) => {
           ),
         },
       };
-    case "SUBSCRIBE_SUB":
+    case 'SUBSCRIBE_SUB':
       return {
         ...state,
         subDetails: { ...state.subDetails, ...action.payload },
       };
-    case "EDIT_DESCRIPTION":
+    case 'EDIT_DESCRIPTION':
       return {
         ...state,
         subDetails: { ...state.subDetails, description: action.payload },
@@ -43,7 +43,7 @@ export const fetchSub = (subredditName, sortBy) => {
     const sub = await subService.getSubreddit(subredditName, sortBy, 10, 1);
 
     dispatch({
-      type: "FETCH_SUB",
+      type: 'FETCH_SUB',
       payload: sub,
     });
   };
@@ -54,7 +54,7 @@ export const loadSubPosts = (subredditName, sortBy, page) => {
     const sub = await subService.getSubreddit(subredditName, sortBy, 10, page);
 
     dispatch({
-      type: "LOAD_SUB_POSTS",
+      type: 'LOAD_SUB_POSTS',
       payload: sub,
     });
   };
@@ -68,7 +68,7 @@ export const toggleUpvote = (id, upvotedBy, downvotedBy) => {
     }
 
     dispatch({
-      type: "TOGGLE_SUBPAGE_VOTE",
+      type: 'TOGGLE_SUBPAGE_VOTE',
       payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
     });
 
@@ -84,7 +84,7 @@ export const toggleDownvote = (id, downvotedBy, upvotedBy) => {
     }
 
     dispatch({
-      type: "TOGGLE_SUBPAGE_VOTE",
+      type: 'TOGGLE_SUBPAGE_VOTE',
       payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
     });
 
@@ -97,7 +97,7 @@ export const toggleSubscribe = (id, subscribedBy) => {
     const subscriberCount = subscribedBy.length;
 
     dispatch({
-      type: "SUBSCRIBE_SUB",
+      type: 'SUBSCRIBE_SUB',
       payload: { subscribedBy, subscriberCount },
     });
 
@@ -110,11 +110,10 @@ export const editDescription = (id, description) => {
     await subService.updateDescription(id, { description });
 
     dispatch({
-      type: "EDIT_DESCRIPTION",
+      type: 'EDIT_DESCRIPTION',
       payload: description,
     });
   };
 };
-
 
 export default subPageReducer;

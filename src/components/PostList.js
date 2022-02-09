@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchPosts,
   loadMorePosts,
   toggleUpvote,
   toggleDownvote,
-} from "../reducers/postReducer";
-import { notify } from "../reducers/notificationReducer";
-import PostCard from "./PostCard";
-import SortTabBar from "./SortTabBar";
-import LoadMoreButton from "./LoadMoreButton";
-import LoadingSpinner from "./LoadingSpinner";
-import getErrorMsg from "../utils/getErrorMsg";
+} from '../reducers/postReducer';
+import { notify } from '../reducers/notificationReducer';
+import PostCard from './PostCard';
+import SortTabBar from './SortTabBar';
+import LoadMoreButton from './LoadMoreButton';
+import LoadingSpinner from './LoadingSpinner';
+import getErrorMsg from '../utils/getErrorMsg';
 
-import { Typography } from "@material-ui/core";
-import { usePostListStyles } from "../styles/muiStyles";
+import { Typography } from '@material-ui/core';
+import { usePostListStyles } from '../styles/muiStyles';
 
 const PostList = () => {
-  const [sortBy, setSortBy] = useState("hot");
+  const [sortBy, setSortBy] = useState('hot');
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
   const [pageLoading, setPageLoading] = useState(false);
@@ -38,7 +38,7 @@ const PostList = () => {
       }
     } catch (err) {
       setPageLoading(false);
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
@@ -50,7 +50,7 @@ const PostList = () => {
       setLoadingMore(false);
     } catch (err) {
       setLoadingMore(false);
-      dispatch(notify(getErrorMsg(err), "error"));
+      dispatch(notify(getErrorMsg(err), 'error'));
     }
   };
 
@@ -72,9 +72,9 @@ const PostList = () => {
           />
         ))
       ) : (
-        <LoadingSpinner text={"Fetching posts. Wait a sec."} />
+        <LoadingSpinner text={'Fetching posts. Wait a sec.'} />
       )}
-      {sortBy === "subscribed" && posts.results.length === 0 && (
+      {sortBy === 'subscribed' && posts.results.length === 0 && (
         <div className={classes.noSubscribedPosts}>
           <Typography variant="h5" color="secondary">
             No Posts Found
@@ -84,7 +84,7 @@ const PostList = () => {
           </Typography>
         </div>
       )}
-      {posts && "next" in posts && !pageLoading && (
+      {posts && 'next' in posts && !pageLoading && (
         <LoadMoreButton
           handleLoadPosts={handleLoadPosts}
           loading={loadingMore}

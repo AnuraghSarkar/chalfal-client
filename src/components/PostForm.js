@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { Formik, Form } from "formik";
-import { TextInput } from "./FormikMuiFields";
-import generateBase64Encode from "../utils/genBase64Encode";
-import { createNewPost, updatePost } from "../reducers/postCommentsReducer";
-import { notify } from "../reducers/notificationReducer";
-import * as yup from "yup";
-import AlertMessage from "./AlertMessage";
-import getErrorMsg from "../utils/getErrorMsg";
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { Formik, Form } from 'formik';
+import { TextInput } from './FormikMuiFields';
+import generateBase64Encode from '../utils/genBase64Encode';
+import { createNewPost, updatePost } from '../reducers/postCommentsReducer';
+import { notify } from '../reducers/notificationReducer';
+import * as yup from 'yup';
+import AlertMessage from './AlertMessage';
+import getErrorMsg from '../utils/getErrorMsg';
 
 import {
   Button,
@@ -17,30 +17,30 @@ import {
   Typography,
   useMediaQuery,
   IconButton,
-} from "@material-ui/core";
-import { usePostFormStyles } from "../styles/muiStyles";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import { useTheme } from "@material-ui/core/styles";
-import TitleIcon from "@material-ui/icons/Title";
-import TextFormatIcon from "@material-ui/icons/TextFormat";
-import ImageIcon from "@material-ui/icons/Image";
-import LinkIcon from "@material-ui/icons/Link";
-import PublishIcon from "@material-ui/icons/Publish";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import CancelIcon from "@material-ui/icons/Cancel";
-import ChatIcon from "@material-ui/icons/Chat";
-import PostAddIcon from "@material-ui/icons/PostAdd";
-import EditIcon from "@material-ui/icons/Edit";
+} from '@material-ui/core';
+import { usePostFormStyles } from '../styles/muiStyles';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { useTheme } from '@material-ui/core/styles';
+import TitleIcon from '@material-ui/icons/Title';
+import TextFormatIcon from '@material-ui/icons/TextFormat';
+import ImageIcon from '@material-ui/icons/Image';
+import LinkIcon from '@material-ui/icons/Link';
+import PublishIcon from '@material-ui/icons/Publish';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
+import ChatIcon from '@material-ui/icons/Chat';
+import PostAddIcon from '@material-ui/icons/PostAdd';
+import EditIcon from '@material-ui/icons/Edit';
 
 const validationSchema = yup.object({
-  title: yup.string().required("Required"),
+  title: yup.string().required('Required'),
   textSubmission: yup.string(),
   imageSubmission: yup.string(),
   linkSubmission: yup
     .string()
     .matches(
       /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\.[a-z]{2,6}(:[0-9]{1,5})?(\/.*)?$/,
-      "Valid URL required"
+      'Valid URL required'
     ),
 });
 
@@ -55,13 +55,13 @@ const AddPostForm = ({
   linkSubmission,
   fromSubreddit,
 }) => {
-  const [fileName, setFileName] = useState("");
+  const [fileName, setFileName] = useState('');
   const [error, setError] = useState(null);
   const { subs } = useSelector((state) => state);
   const dispatch = useDispatch();
   const history = useHistory();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = usePostFormStyles();
 
   const fileInputOnChange = (e, setFieldValue) => {
@@ -71,8 +71,8 @@ const AddPostForm = ({
   };
 
   const clearFileSelection = (setFieldValue) => {
-    setFieldValue("imageSubmission", "");
-    setFileName("");
+    setFieldValue('imageSubmission', '');
+    setFileName('');
   };
 
   const handleAddPost = async (values, { setSubmitting }) => {
@@ -81,7 +81,7 @@ const AddPostForm = ({
       const postId = await dispatch(createNewPost(values));
       setSubmitting(false);
       history.push(`/comments/${postId}`);
-      dispatch(notify("Added new post!", "success"));
+      dispatch(notify('Added new post!', 'success'));
     } catch (err) {
       setSubmitting(false);
       setError(getErrorMsg(err));
@@ -94,7 +94,7 @@ const AddPostForm = ({
       await dispatch(updatePost(postToEditId, values));
       setSubmitting(false);
       history.push(`/comments/${postToEditId}`);
-      dispatch(notify("Successfully updated the post!", "success"));
+      dispatch(notify('Successfully updated the post!', 'success'));
     } catch (err) {
       setSubmitting(false);
       setError(getErrorMsg(err));
@@ -105,51 +105,51 @@ const AddPostForm = ({
     <div className={classes.root}>
       <Formik
         initialValues={{
-          title: actionType === "edit" ? postToEditTitle : "",
-          postType: actionType === "edit" ? postToEditType : postType,
-          textSubmission: actionType === "edit" ? textSubmission : "",
-          linkSubmission: actionType === "edit" ? linkSubmission : "",
-          imageSubmission: "",
+          title: actionType === 'edit' ? postToEditTitle : '',
+          postType: actionType === 'edit' ? postToEditType : postType,
+          textSubmission: actionType === 'edit' ? textSubmission : '',
+          linkSubmission: actionType === 'edit' ? linkSubmission : '',
+          imageSubmission: '',
           subreddit:
-            actionType === "edit"
+            actionType === 'edit'
               ? postToEditSub.id
               : !fromSubreddit
-              ? ""
+              ? ''
               : fromSubreddit.id,
         }}
-        onSubmit={actionType === "edit" ? handleUpdatePost : handleAddPost}
+        onSubmit={actionType === 'edit' ? handleUpdatePost : handleAddPost}
         validationSchema={validationSchema}
       >
         {({ isSubmitting, values, setFieldValue }) => (
           <Form className={classes.form}>
-            {actionType !== "edit" && (
+            {actionType !== 'edit' && (
               <ButtonGroup
                 color="secondary"
                 fullWidth
                 className={classes.typeBtnGroup}
               >
                 <Button
-                  onClick={() => setFieldValue("postType", "Text")}
+                  onClick={() => setFieldValue('postType', 'Text')}
                   variant={
-                    values.postType === "Text" ? "contained" : "outlined"
+                    values.postType === 'Text' ? 'contained' : 'outlined'
                   }
                 >
                   <TextFormatIcon style={{ marginRight: 2 }} />
                   Text
                 </Button>
                 <Button
-                  onClick={() => setFieldValue("postType", "Image")}
+                  onClick={() => setFieldValue('postType', 'Image')}
                   variant={
-                    values.postType === "Image" ? "contained" : "outlined"
+                    values.postType === 'Image' ? 'contained' : 'outlined'
                   }
                 >
                   <ImageIcon style={{ marginRight: 5 }} />
                   Image
                 </Button>
                 <Button
-                  onClick={() => setFieldValue("postType", "Link")}
+                  onClick={() => setFieldValue('postType', 'Link')}
                   variant={
-                    values.postType === "Link" ? "contained" : "outlined"
+                    values.postType === 'Link' ? 'contained' : 'outlined'
                   }
                 >
                   <LinkIcon style={{ marginRight: 5 }} />
@@ -168,26 +168,26 @@ const AddPostForm = ({
               <Autocomplete
                 name="subreddit"
                 onChange={(e, value) =>
-                  setFieldValue("subreddit", value ? value.id : "")
+                  setFieldValue('subreddit', value ? value.id : '')
                 }
                 fullWidth
                 options={subs && subs.allSubs}
-                disabled={actionType === "edit" || !!fromSubreddit}
+                disabled={actionType === 'edit' || !!fromSubreddit}
                 getOptionLabel={(option) => option.subredditName}
                 getOptionSelected={(option, value) => option.id === value.id}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     label={
-                      actionType === "edit"
+                      actionType === 'edit'
                         ? postToEditSub.subredditName
                         : !fromSubreddit
-                        ? "Choose a subreddish"
+                        ? 'Choose a subreddish'
                         : fromSubreddit.subredditName
                     }
                     placeholder="Search by name"
                     required
-                    disabled={actionType === "edit" || !!fromSubreddit}
+                    disabled={actionType === 'edit' || !!fromSubreddit}
                   />
                 )}
               />
@@ -201,10 +201,10 @@ const AddPostForm = ({
                 label="Title"
                 required
                 fullWidth
-                disabled={actionType === "edit"}
+                disabled={actionType === 'edit'}
               />
             </div>
-            {values.postType === "Text" && (
+            {values.postType === 'Text' && (
               <div className={classes.textInput}>
                 <ChatIcon className={classes.inputIcon} color="primary" />
                 <TextInput
@@ -212,7 +212,7 @@ const AddPostForm = ({
                   placeholder={`Enter text (HTML supported. For ex, "<h1>Like this?</h1>")`}
                   multiline
                   label="Text"
-                  required={values.postType === "Text"}
+                  required={values.postType === 'Text'}
                   fullWidth
                   variant="outlined"
                   rows={4}
@@ -220,7 +220,7 @@ const AddPostForm = ({
                 />
               </div>
             )}
-            {values.postType === "Image" && (
+            {values.postType === 'Image' && (
               <div className={classes.imageInput}>
                 <div className={classes.imageBtnsWrapper}>
                   <ImageIcon className={classes.inputIcon} color="primary" />
@@ -230,7 +230,7 @@ const AddPostForm = ({
                     accept="image/*"
                     hidden
                     onChange={(e) => fileInputOnChange(e, setFieldValue)}
-                    required={values.postType === "Image"}
+                    required={values.postType === 'Image'}
                   />
                   <Button
                     component="label"
@@ -245,18 +245,18 @@ const AddPostForm = ({
                         <PublishIcon />
                       )
                     }
-                    size={isMobile ? "small" : "medium"}
+                    size={isMobile ? 'small' : 'medium'}
                     className={classes.selectBtn}
                   >
                     {values.imageSubmission
-                      ? `${isMobile ? "" : "Selected "}"${fileName}"`
+                      ? `${isMobile ? '' : 'Selected '}"${fileName}"`
                       : `Select Image`}
                   </Button>
                   {values.imageSubmission && (
                     <IconButton
                       onClick={() => clearFileSelection(setFieldValue)}
                       color="secondary"
-                      size={isMobile ? "small" : "medium"}
+                      size={isMobile ? 'small' : 'medium'}
                       className={classes.clearSelectionBtn}
                     >
                       <CancelIcon />
@@ -274,7 +274,7 @@ const AddPostForm = ({
                 )}
               </div>
             )}
-            {values.postType === "Link" && (
+            {values.postType === 'Link' && (
               <div className={classes.input}>
                 <LinkIcon className={classes.inputIcon} color="primary" />
                 <TextInput
@@ -282,9 +282,9 @@ const AddPostForm = ({
                   type="text"
                   placeholder="Enter URL"
                   label="Link"
-                  required={values.postType === "Link"}
+                  required={values.postType === 'Link'}
                   fullWidth
-                  variant={actionType === "edit" ? "outlined" : "standard"}
+                  variant={actionType === 'edit' ? 'outlined' : 'standard'}
                 />
               </div>
             )}
@@ -299,11 +299,11 @@ const AddPostForm = ({
             >
               {postToEditId
                 ? isSubmitting
-                  ? "Updating"
-                  : "Update"
+                  ? 'Updating'
+                  : 'Update'
                 : isSubmitting
-                ? "Posting"
-                : "Post"}
+                ? 'Posting'
+                : 'Post'}
             </Button>
           </Form>
         )}

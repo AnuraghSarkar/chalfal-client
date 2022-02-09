@@ -1,9 +1,9 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { clearNotif } from "../reducers/notificationReducer";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearNotif } from '../reducers/notificationReducer';
 
-import { Snackbar } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
+import { Snackbar } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 
 const ToastNotif = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const ToastNotif = () => {
     <Snackbar
       open={!!notification}
       onClose={handleNotifClose}
-      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
     >
       <Alert onClose={handleNotifClose} severity={severity}>
         {message}

@@ -1,8 +1,8 @@
-import React from "react";
-import { ReactComponent as Error404 } from "../svg/404-error.svg";
+import React from 'react';
+import { ReactComponent as Error404 } from '../svg/404-error.svg';
 
-import { Container, Paper, Typography, SvgIcon } from "@material-ui/core";
-import { useNotFoundPageStyles } from "../styles/muiStyles";
+import { Container, Paper, Typography, SvgIcon } from '@material-ui/core';
+import { useNotFoundPageStyles } from '../styles/muiStyles';
 
 const NotFoundPage = () => {
   const classes = useNotFoundPageStyles();

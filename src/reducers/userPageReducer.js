@@ -1,11 +1,11 @@
-import userService from "../services/user";
-import postService from "../services/posts";
+import userService from '../services/user';
+import postService from '../services/posts';
 
 const userPageReducer = (state = null, action) => {
   switch (action.type) {
-    case "FETCH_USER":
+    case 'FETCH_USER':
       return action.payload;
-    case "TOGGLE_USERPAGE_VOTE":
+    case 'TOGGLE_USERPAGE_VOTE':
       return {
         ...state,
         posts: {
@@ -15,7 +15,7 @@ const userPageReducer = (state = null, action) => {
           ),
         },
       };
-    case "LOAD_USER_POSTS":
+    case 'LOAD_USER_POSTS':
       return {
         ...state,
         posts: {
@@ -33,7 +33,7 @@ export const fetchUser = (username) => {
     const user = await userService.getUser(username, 5, 1);
 
     dispatch({
-      type: "FETCH_USER",
+      type: 'FETCH_USER',
       payload: user,
     });
   };
@@ -44,12 +44,11 @@ export const loadUserPosts = (username, page) => {
     const user = await userService.getUser(username, 5, page);
 
     dispatch({
-      type: "LOAD_USER_POSTS",
+      type: 'LOAD_USER_POSTS',
       payload: user,
     });
   };
 };
-
 
 export const toggleUpvote = (id, upvotedBy, downvotedBy) => {
   return async (dispatch) => {
@@ -59,14 +58,13 @@ export const toggleUpvote = (id, upvotedBy, downvotedBy) => {
     }
 
     dispatch({
-      type: "TOGGLE_USERPAGE_VOTE",
+      type: 'TOGGLE_USERPAGE_VOTE',
       payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
     });
 
     await postService.upvotePost(id);
   };
 };
-
 
 export const toggleDownvote = (id, downvotedBy, upvotedBy) => {
   return async (dispatch) => {
@@ -76,13 +74,12 @@ export const toggleDownvote = (id, downvotedBy, upvotedBy) => {
     }
 
     dispatch({
-      type: "TOGGLE_USERPAGE_VOTE",
+      type: 'TOGGLE_USERPAGE_VOTE',
       payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
     });
 
     await postService.downvotePost(id);
   };
 };
-
 
 export default userPageReducer;

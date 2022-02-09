@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Link as RouterLink } from "react-router-dom";
 import { logoutUser } from "../reducers/userReducer";
 import { notify } from "../reducers/notificationReducer";
@@ -15,13 +14,12 @@ import {
   useMediaQuery,
   IconButton,
 } from "@material-ui/core";
-
 import { useNavStyles } from "../styles/muiStyles";
 import { useTheme } from "@material-ui/core/styles";
 import RedditIcon from "@material-ui/icons/Reddit";
 import SearchIcon from "@material-ui/icons/Search";
 
-const Navbar = () => {
+const NavBar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -78,4 +76,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;

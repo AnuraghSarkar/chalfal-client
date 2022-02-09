@@ -1,20 +1,19 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import { InputAdornment, IconButton, TextField } from "@material-ui/core";
-import { useNavStyles } from "../styles/muiStyles";
-import SearchIcon from "@material-ui/icons/Search";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-
+import { InputAdornment, IconButton, TextField } from '@material-ui/core';
+import { useNavStyles } from '../styles/muiStyles';
+import SearchIcon from '@material-ui/icons/Search';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 const SearchBar = ({ isMobile, setSearchOpen }) => {
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState('');
   const history = useHistory();
   const classes = useNavStyles();
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchInput === "") return;
+    if (searchInput === '') return;
     history.push(`/search/${searchInput}`);
   };
 
@@ -22,7 +21,7 @@ const SearchBar = ({ isMobile, setSearchOpen }) => {
     if (isMobile) {
       setSearchOpen(false);
     }
-    setSearchInput("");
+    setSearchInput('');
   };
 
   return (

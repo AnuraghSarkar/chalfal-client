@@ -1,22 +1,22 @@
-import postService from "../services/posts";
+import postService from '../services/posts';
 
 const postReducer = (state = null, action) => {
   switch (action.type) {
-    case "SET_POSTS":
+    case 'SET_POSTS':
       return action.payload;
-    case "LOAD_MORE_POSTS":
+    case 'LOAD_MORE_POSTS':
       return {
         ...action.payload,
         results: [...state.results, ...action.payload.results],
       };
-    case "TOGGLE_VOTE":
+    case 'TOGGLE_VOTE':
       return {
         ...state,
         results: state.results.map((r) =>
           r.id !== action.payload.id ? r : { ...r, ...action.payload.data }
         ),
       };
-    case "DELETE_POST":
+    case 'DELETE_POST':
       return {
         ...state,
         results: state.results.filter((r) => r.id !== action.payload),
@@ -30,14 +30,14 @@ export const fetchPosts = (sortBy) => {
   return async (dispatch) => {
     let posts;
 
-    if (sortBy !== "subscribed") {
+    if (sortBy !== 'subscribed') {
       posts = await postService.getPosts(sortBy, 10, 1);
     } else {
       posts = await postService.getSubPosts(10, 1);
     }
 
     dispatch({
-      type: "SET_POSTS",
+      type: 'SET_POSTS',
       payload: posts,
     });
   };
@@ -46,14 +46,14 @@ export const fetchPosts = (sortBy) => {
 export const loadMorePosts = (sortBy, page) => {
   return async (dispatch) => {
     let posts;
-    if (sortBy !== "subscribed") {
+    if (sortBy !== 'subscribed') {
       posts = await postService.getPosts(sortBy, 10, page);
     } else {
       posts = await postService.getSubPosts(10, page);
     }
 
     dispatch({
-      type: "LOAD_MORE_POSTS",
+      type: 'LOAD_MORE_POSTS',
       payload: posts,
     });
   };
@@ -67,7 +67,7 @@ export const toggleUpvote = (id, upvotedBy, downvotedBy) => {
     }
 
     dispatch({
-      type: "TOGGLE_VOTE",
+      type: 'TOGGLE_VOTE',
       payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
     });
 
@@ -83,7 +83,7 @@ export const toggleDownvote = (id, downvotedBy, upvotedBy) => {
     }
 
     dispatch({
-      type: "TOGGLE_VOTE",
+      type: 'TOGGLE_VOTE',
       payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
     });
 
@@ -96,7 +96,7 @@ export const removePost = (id) => {
     await postService.deletePost(id);
 
     dispatch({
-      type: "DELETE_POST",
+      type: 'DELETE_POST',
       payload: id,
     });
   };

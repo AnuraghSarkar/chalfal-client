@@ -8,7 +8,7 @@ const customTheme = (darkMode) =>
         main: darkMode ? "#18e0ae" : "#c502df",
       },
       secondary: {
-        main: darkMode ? "#666769" : "#5402ed",
+        main: darkMode ? "#ffffff" : "#5402ed",
       },
     },
     overrides: {

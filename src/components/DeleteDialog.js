@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Button,
   Dialog,
@@ -8,15 +8,15 @@ import {
   DialogTitle,
   MenuItem,
   ListItemIcon,
-} from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+} from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const DeleteDialog = ({ title, handleDelete, handleMenuClose, type }) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
-    if (type !== "comment" && type !== "avatar") {
+    if (type !== 'comment' && type !== 'avatar') {
       handleMenuClose();
     }
   };
@@ -32,24 +32,24 @@ const DeleteDialog = ({ title, handleDelete, handleMenuClose, type }) => {
 
   return (
     <div>
-      {type === "comment" ? (
+      {type === 'comment' ? (
         <Button
           onClick={handleClickOpen}
           size="small"
           color="inherit"
           startIcon={<DeleteIcon />}
-          style={{ textTransform: "none" }}
+          style={{ textTransform: 'none' }}
         >
           Delete
         </Button>
-      ) : type === "avatar" ? (
+      ) : type === 'avatar' ? (
         <Button
           onClick={handleClickOpen}
           size="small"
           color="secondary"
           variant="outlined"
           startIcon={<DeleteIcon />}
-          style={{ textTransform: "none" }}
+          style={{ textTransform: 'none' }}
         >
           Remove
         </Button>
@@ -63,18 +63,18 @@ const DeleteDialog = ({ title, handleDelete, handleMenuClose, type }) => {
       )}
       <Dialog open={open} keepMounted onClose={handleClose}>
         <DialogTitle>
-          {type === "comment"
-            ? "Delete Comment?"
-            : type === "avatar"
-            ? "Remove Avatar?"
-            : "Delete Post?"}
+          {type === 'comment'
+            ? 'Delete Comment?'
+            : type === 'avatar'
+            ? 'Remove Avatar?'
+            : 'Delete Post?'}
         </DialogTitle>
         <DialogContent dividers>
           <DialogContentText>
-            {type === "comment"
+            {type === 'comment'
               ? `Are you sure you want to delete your comment?`
-              : type === "avatar"
-              ? "Are you sure you want to remove your avatar?"
+              : type === 'avatar'
+              ? 'Are you sure you want to remove your avatar?'
               : `Are you sure you want to delete your post titled '${title}'? You
               can't undo this.`}
           </DialogContentText>
@@ -94,11 +94,11 @@ const DeleteDialog = ({ title, handleDelete, handleMenuClose, type }) => {
             variant="contained"
             size="small"
           >
-            {type === "comment"
-              ? "Delete Comment"
-              : type === "avatar"
-              ? "Remove Avatar"
-              : "Delete Post"}
+            {type === 'comment'
+              ? 'Delete Comment'
+              : type === 'avatar'
+              ? 'Remove Avatar'
+              : 'Delete Post'}
           </Button>
         </DialogActions>
       </Dialog>
