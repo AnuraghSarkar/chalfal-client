@@ -1,3 +1,3 @@
-const backendUrl = "http://127.0.0.1:3005";
+const backendUrl = "https://chalfal-backend.herokuapp.com"; //"http://localhost:3005";
 
 export default backendUrl;
