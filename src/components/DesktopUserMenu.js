@@ -45,7 +45,7 @@ const DesktopUserMenu = ({ user, handleLogout }) => {
       {loggedUser ? (
         <>
           <Button onClick={handleMenu} className={classes.userBtn}>
-            {console.log(loggedUser)}
+           
             {loggedUser?.avatar?.exists ? (
               <Avatar
                 alt={loggedUser.username}
